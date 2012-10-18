@@ -1,0 +1,9 @@
+= simple_form_for(@organization) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.label :name, "Name"
+    = f.text_field :name
+
+  .form-actions
+    = f.button :submit

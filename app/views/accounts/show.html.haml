@@ -1,0 +1,4 @@
+Account #{@account.name}
+//= render :partial => '/images/images_list'
+- @images.each do |image|
+  = image_tag image.image.url

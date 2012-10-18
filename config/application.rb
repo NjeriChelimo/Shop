@@ -19,8 +19,9 @@ module Giga
   class Application < Rails::Application
 
     config.generators do |g|
-      
-      
+      g.orm :mongoid
+      g.template_engine :haml # this could be :haml or whatever
+      g.test_framework :test_unit, :fixture => :minitest # this could be :rpsec or whatever
     end
 
     # Settings in config/environments/* take precedence over those specified here.
