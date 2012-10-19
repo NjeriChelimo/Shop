@@ -1,13 +1,22 @@
 class Image
   include Mongoid::Document
   include Mongoid::Paperclip
-  field :name, type: String
+  field :image_file_name
+  field :crop_x
+  field :crop_y
+  field :crop_w
+  field :crop_h
   field :account_id#, type: Integer
   field :organization_id#, type: Integer
-  has_mongoid_attached_file :image, :styles => { :small => "100x100#", :large => "500x500>" }, :processors => [:cropper]
+  has_mongoid_attached_file :image, :styles => { :small => "100x100#", :large => "500x500>" }, :processors => [:cropper],
+    :path => ":rails_root/public/system/image/:id/:style/:basename.:extension",
+    :url  => "/system/image/:id/:style/:basename.:extension"
+  validates_attachment_presence :photo
+  validates_attachment_size :photo, :less_than => 5.megabytes
+
   belongs_to :accounts
-  attr_accessible :name, :account_id, :organization_id, :image
-  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  attr_accessible :account_id, :organization_id, :image
+  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h, :image_file_name
   after_update :reprocess_avatar, :if => :cropping?
 
   def cropping?

@@ -53,4 +53,8 @@ class ImagesController < ApplicationController
 #      render :action => 'edit'
     end
   end
+
+  def crop
+    @image = Image.find(params[:image_id])
+  end
 end
