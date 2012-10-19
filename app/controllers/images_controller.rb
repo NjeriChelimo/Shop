@@ -24,8 +24,33 @@ class ImagesController < ApplicationController
     @image.account_id = @account.id
     @image.organization_id = @account.organization.id
 
+#    if @image.save
+#      redirect_to root_url
+#    end
+
     if @image.save
-      redirect_to root_url
+      if params[:image].blank?
+        flash[:notice] = "Successfully created image."
+        redirect_to root_url
+      else
+        render :action => "crop"
+      end
+    else
+      render :action => 'new'
+    end
+  end
+
+  def update
+    @image = Image.find(params[:image_id])
+    if @image.update_attributes(params[:image])
+      if params[:image].blank?
+        flash[:notice] = "Successfully updated image."
+        redirect_to root_url
+      else
+        render :action => "crop"
+      end
+#    else
+#      render :action => 'edit'
     end
   end
 end
