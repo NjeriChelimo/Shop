@@ -1,2 +1,3 @@
 - @images.each do |image|
-  = image_tag image.image.url(:small)
+  = image_tag image.picture.url(:large)
+  = link_to "Image Details", organization_account_image_path(@organization.id, @account.id, image.id)

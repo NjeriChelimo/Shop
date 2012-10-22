@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
   def show
     @account = Account.find(params[:id])
     @images = @account.images
+    @organization = @account.organization
 
     respond_to do |format|
       format.html # show.html.erb

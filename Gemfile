@@ -21,3 +21,7 @@ gem "quiet_assets", ">= 1.0.1", :group => :development
 gem "therubyracer", ">= 0.10.2", :group => :assets, :platform => :ruby
 gem "mongoid-paperclip", "~> 0.0.8", :require => "mongoid_paperclip"
 gem "aws-s3", :require => "aws/s3"
+gem 'rmagick'
+gem 'carrierwave'
+gem 'jquery-rails'
+gem 'paperclip'

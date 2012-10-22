@@ -5,14 +5,6 @@ Giga::Application.routes.draw do
     end
   end
 
-#  get "images/index"
-
-#  get "images/new"
-
-#  get "images/show"
-
-#  post "images/create"
-
   authenticated :user do
     root :to => 'home#index'
   end

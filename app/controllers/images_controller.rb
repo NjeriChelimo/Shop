@@ -3,9 +3,6 @@ class ImagesController < ApplicationController
 #  end
 
   def new
-    #@image = Image.new(params[:image])
-#    @account = @image.account
-#    @organization = @account.organization
     @organization = Organization.find(params[:organization_id])
     @account = @organization.accounts.find(params[:account_id])
     @image = @account.images.new(params[:image])
@@ -13,48 +10,84 @@ class ImagesController < ApplicationController
 
   def show
     @id = params[:id]
-    @image = Image.find(@id)
+    @image = Image.find(params[:id])
   end
 
   def create
-    #@image = Image.new(params[:image])
     @organization = Organization.find(params[:organization_id])
     @account = @organization.accounts.find(params[:account_id])
     @image = @account.images.build(params[:image])
     @image.account_id = @account.id
     @image.organization_id = @account.organization.id
-
 #    if @image.save
-#      redirect_to root_url
+#      if params[:image][:picture].present?
+#        render :crop
+#      else
+#        redirect_to @image
+#        flash[:notice] = "Successfully created image."
+#      end
+#    else
+#      flash[:notice] = "Image not cropped."
+#      render :new
 #    end
-
-    if @image.save
-      if params[:image].blank?
-        flash[:notice] = "Successfully created image."
-        redirect_to root_url
+    respond_to do |format|
+      if @image.save
+        #if params[:image][:picture].blank?
+        format.html { redirect_to root_url, :notice => 'Image was successfully created.' }
+        format.json { render :json => @image, :status => :created, :location => @image }
+        #else
+        #format.html { redirect_to edit_organization_account_image_path }
+        #end
       else
-        render :action => "crop"
+        format.html { render :action => "new" }
+        format.json { render :json => @image.errors, :status => :unprocessable_entity }
       end
-    else
-      render :action => 'new'
+    #@image.picture.reprocess!
     end
+
   end
 
   def update
-    @image = Image.find(params[:image_id])
-    if @image.update_attributes(params[:image])
-      if params[:image].blank?
-        flash[:notice] = "Successfully updated image."
-        redirect_to root_url
-      else
-        render :action => "crop"
-      end
+    @organization = Organization.find(params[:organization_id])
+    @account = @organization.accounts.find(params[:account_id])
+    @image = @account.images.find(params[:id])
+#    if @image.update_attributes(params[:image])
+#      if params[:image][:picture].present?
+#        render :crop
+#        if @image.cropping?
+#          @image.picture.reprocess!
+#        end
+#      else
+#        flash[:notice] = "Successfully updated image."
+#        redirect_to @image
+#     end
 #    else
-#      render :action => 'edit'
+#     render :edit
+#    end
+
+    respond_to do |format|
+      if @image.update_attributes(params[:image])
+#        if params[:image][:picture].blank?
+#          format.html { redirect_to root_url, :notice => 'Image was successfully updated.' }
+#          format.json { render :json => @image, :status => :created, :location => @image }
+#        end
+      @image.picture.reprocess!
+      @image.save!
+      format.html { redirect_to organization_account_image_path, :notice => 'Image was successfully updated.' }
+          format.json { render :json => @image, :status => :created, :location => @image }
+      #redirect_to organization_account_image_path
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @image.errors, :status => :unprocessable_entity }
+      end
+    #@image.picture.reprocess!
     end
+
   end
 
-  def crop
-    @image = Image.find(params[:image_id])
+  def edit
+    @organization = Organization.find(params[:organization_id])
+    @account = @organization.accounts.find(params[:account_id])
+    @image = @account.images.find(params[:id])
   end
 end

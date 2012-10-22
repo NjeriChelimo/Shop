@@ -7,8 +7,8 @@ $(function() {
   $('#cropbox').Jcrop({
     onChange: update_crop,
     onSelect: update_crop,
-    setSelect: [0, 0, 500, 500],
-    aspectRatio: 1
+    setSelect: [0, 0, 250, 250],
+    //aspectRatio: 1
   });
 });
 
@@ -16,12 +16,12 @@ function update_crop(coords) {
   var rx = 100/coords.w;
   var ry = 100/coords.h;
   $('#preview').css({
-    width: Math.round(rx * <%= @image.image_geometry(:large).width %>) + 'px',
-    height: Math.round(ry * <%= @image.image_geometry(:large).height %>) + 'px',
+    width: Math.round(rx * <%= @image.picture_geometry(:large).width %>) + 'px',
+    height: Math.round(ry * <%= @image.picture_geometry(:large).height %>) + 'px',
     marginLeft: '-' + Math.round(rx * coords.x) + 'px',
     marginTop: '-' + Math.round(ry * coords.y) + 'px'
   });
-  var ratio = <%= @image.image_geometry(:original).width %> / <%= @image.image_geometry(:large).width %>;
+  var ratio = <%= @image.picture_geometry(:original).width %> / <%= @image.picture_geometry(:large).width %>;
   $("#crop_x").val(Math.round(coords.x * ratio));
   $("#crop_y").val(Math.round(coords.y * ratio));
   $("#crop_w").val(Math.round(coords.w * ratio));
@@ -30,18 +30,18 @@ function update_crop(coords) {
 </script>
 <% end %>
 
-<%= image_tag @image.image.url(:large), :id => "cropbox" %>
+<%= image_tag @image.picture.url(:large), :id => "cropbox" %>
 
 <h4>Preview:</h4>
 <div style="width:100px; height:100px; overflow:hidden">
-  <%= image_tag @image.image.url(:large), :id => "preview" %>
+  <%= image_tag @image.picture.url(:large), :id => "preview" %>
 </div>
 
 <div>
-  <%= form_for :image do |f| %>
+  <%= simple_form_for @image, :url => {:action => "update" },     :html => {:multipart => true} do |f| %>
     <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
       <%= f.text_field attribute, :id => attribute %>
     <% end %>
-    <p><%= f.submit "Crop" %></p>
+    <p><%= f.submit "Crop", :method => :put %></p>
   <% end %>
 </div
