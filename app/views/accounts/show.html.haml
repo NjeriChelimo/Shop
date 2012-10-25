@@ -1,2 +1,3 @@
 Account #{@account.name}
+= link_to "Add image", new_organization_account_image_path(@organization.id, @account.id), :class=>"btn"
 = render :partial => '/images/images_list'

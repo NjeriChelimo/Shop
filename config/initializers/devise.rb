@@ -23,7 +23,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [ :email ]
+  config.authentication_keys = [ :email ]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -82,7 +82,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = "3dd9829be7f1b9af3a91fe361e32c21363e23793699b1ec8aaacee94a52728f1df253244f6a210f7066eca26261196df55bbc773c2b6dc1d306942696cdecfec"
+  # config.pepper = "1b153166551e45ccefd83f0e9b56fd8599bf6d1d2727b2b9dbd771bc07fa472853ec6a28414fd9b146999e02251cadcd6e2ec7fdf1f0bab3ef6e43533e9a91fa"
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -125,7 +125,7 @@ Devise.setup do |config|
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   # config.timeout_in = 30.minutes
-  
+
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
 

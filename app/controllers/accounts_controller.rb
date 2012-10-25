@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController
+
+  before_filter :authenticate_user!, :except => [:show, :index]
   # GET /accounts
   # GET /accounts.json
 #  def index
