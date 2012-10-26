@@ -1,4 +1,16 @@
 %h3 Home
 - @users.each do |user|
   %p
-    User: #{link_to user.name, user}
+  User: #{link_to user.name, user}
+
+%div#all_images
+  - @organizations = Organization.all
+  - @organizations.each do |organization|
+    = organization.org_no
+    - @accounts = organization.accounts
+    - @accounts.each do |account|
+      = account.name
+      - @images = account.images
+      - @images.each do |image|
+        = image_tag image.picture.url(:large)
+        = link_to "Image Details", image_path(image.id)

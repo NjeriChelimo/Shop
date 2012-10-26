@@ -10,7 +10,10 @@
     %tr
       %td= account.name
       %td= account.id
-      %td= link_to 'Edit', edit_organization_account_path(@organization.id, account.id), :class=>"btn"
-      %td= link_to 'Account details', organization_account_path(@organization.id, account.id), :class=>"btn"
+      %td= link_to 'Edit', edit_account_path(account.id), :class=>"btn"
+      %td= link_to 'Account details', account_path( account.id), :class=>"btn"
       //%td= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' }
-      %td= link_to "Images", organization_account_path(@organization.id, account.id), :class=>"btn"
+      %td= link_to "Images", account_path(account.id), :class=>"btn"
+      - @images = account.images
+%div#images
+  = render :partial => "images/images_list"

@@ -1,8 +1,7 @@
 Giga::Application.routes.draw do
-  resources :organizations do
-    resources :accounts do
-      resources :images
-    end
+  resources :organizations
+  resources :accounts do
+    resources :images
   end
 
   authenticated :user do

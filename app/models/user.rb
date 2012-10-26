@@ -6,10 +6,11 @@ class User
   #before_save :parse_response, :create_org
 
   belongs_to :organization
-  field :name, :type => String
+  #field :name, :type => String
   field :mpayer_user_no, :type => String
   field :mpayer_user_id, :type => String
-  attr_accessible :mpayer_user_no, :mpayer_user_id, :role
+  field :organization_id, :type => String
+  attr_accessible :mpayer_user_no, :mpayer_user_id, :role, :name, :organization_id
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -102,8 +103,9 @@ class User
   def decrypt_token
     #TODO finish the decrypting
     @json_res = parse_response
-    @token = @user_details[:token]
+    @token = @user_details["token"]
     #@decrypted_token =
+    @decrypted_token = Base64.decode64(@token)
   end
 
   def create_org

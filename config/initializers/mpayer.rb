@@ -21,8 +21,8 @@ class Mpayer
     Client.new(@user_no, @token, Time.now.to_i)
   end
 
-  def account(*opts)
-    Account.new(@user_no, @token, Time.now.to_i )
+  def mpayer_account(*opts)
+    MpayerAccount.new(@user_no, @token, Time.now.to_i )
   end
 
   def send_get_request(request_domain,path,data,headers=nil)
@@ -163,7 +163,7 @@ class Client < Mpayer
     send_post_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end
 
-  def accounts
+  def mpayer_accounts
     #get("/#{@id}/accounts")
     @link ="/clients/#{@id}/accounts"
     @url = URI.parse("#{@@root_url}#{@link}")
@@ -231,7 +231,7 @@ class Client < Mpayer
   end
 end
 
-class Account < Mpayer
+class MpayerAccount < Mpayer
   attr_accessor :user_no, :token, :ref_id, :headers
   def initialize(*args)
     super

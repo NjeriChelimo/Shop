@@ -12,7 +12,7 @@ class Account
   field :total_cr, type: String
   field :total_dr, type: String
   has_many :images
-  validates_presence_of :ac_type, :org_id
+  validates_presence_of :ac_type
   belongs_to :organization
-  attr_accessible :name, :organization_id, :ac_type, :acid, :balance, :mandate, :currency, :org_id, :total_cr, :total_dr
+  attr_accessible :name, :organization_id, :ac_type, :acid, :balance, :mandate, :currency, :total_cr, :total_dr
 end

@@ -3,9 +3,9 @@ class ImagesController < ApplicationController
 #  end
 
   def new
-    @organization = Organization.find(params[:organization_id])
-    @account = @organization.accounts.find(params[:account_id])
-    @image = @account.images.new(params[:image])
+#    @organization = Organization.find(params[:organization_id])
+#    @account = @organization.accounts.find(params[:account_id])
+    @image = Image.new(params[:image])
   end
 
   def show
@@ -14,11 +14,14 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @organization = Organization.find(params[:organization_id])
-    @account = @organization.accounts.find(params[:account_id])
+#    @organization = Organization.find(params[:organization_id])
+#    @account = @organization.accounts.find(params[:account_id])
+    @account = Account.find(params[:account_id])
     @image = @account.images.build(params[:image])
-    @image.account_id = @account.id
+    @image.accounts_id = @account.id
+    @organization = @account.organization
     @image.organization_id = @account.organization.id
+#    @image = Image.new(params[:image])
 #    if @image.save
 #      if params[:image][:picture].present?
 #        render :crop

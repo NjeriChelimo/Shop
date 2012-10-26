@@ -3,10 +3,12 @@ class OrganizationsController < ApplicationController
   # GET /organizations.json
   def index
     @organizations = Organization.all
+    @user = current_user
+    @organization = @user.organization
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @organizations }
+      format.json { render :json => @organization }
     end
   end
 
