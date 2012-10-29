@@ -5,9 +5,13 @@
       %title= content_for?(:title) ? yield(:title) : "Giga"
       %meta{:content => content_for?(:description) ? yield(:description) : "Giga", :name => "description"}
         = stylesheet_link_tag "application", :media => "all"
+        = javascript_include_tag "http://html5shim.googlecode.com/svn/trunk/html5.js"
         = javascript_include_tag "application"
         = javascript_include_tag 'jquery.min.js'
+        = javascript_include_tag 'jquery.simplemodal-1.4.3.js'
         = javascript_include_tag 'jquery.mansory.min.js'
+        = javascript_include_tag 'jquery.infinitescroll.min.js'
+        = yield :scripts
         = csrf_meta_tags
         = yield(:head)
   %body{:class => "#{controller_name} #{action_name}"}

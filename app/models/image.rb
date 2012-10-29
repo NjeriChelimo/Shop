@@ -1,6 +1,9 @@
 class Image
   include Mongoid::Document
   include Mongoid::Paperclip
+  field :price
+  field :discount
+  field :description, type: String
   field :picture_file_name
   field :crop_x
   field :crop_y

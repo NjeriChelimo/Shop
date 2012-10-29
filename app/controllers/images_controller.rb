@@ -51,8 +51,7 @@ class ImagesController < ApplicationController
   end
 
   def update
-    @organization = Organization.find(params[:organization_id])
-    @account = @organization.accounts.find(params[:account_id])
+    @account = Account.find(params[:account_id])
     @image = @account.images.find(params[:id])
 #    if @image.update_attributes(params[:image])
 #      if params[:image][:picture].present?
@@ -89,8 +88,7 @@ class ImagesController < ApplicationController
   end
 
   def edit
-    @organization = Organization.find(params[:organization_id])
-    @account = @organization.accounts.find(params[:account_id])
+    @account = Account.find(params[:account_id])
     @image = @account.images.find(params[:id])
   end
 end

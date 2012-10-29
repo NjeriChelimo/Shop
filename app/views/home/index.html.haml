@@ -12,6 +12,13 @@
       - account.name
       - @images = account.images
       - @images.each do |image|
-        %div#images-container.image
+        %div#images-container
           = image_tag image.picture.url(:large)
-          = link_to "Image Details", account_image_path(account.id, image.id)
+          %li.image
+            = link_to "Image Details"
+            %div#rating_modal
+              %h1 This is a test
+              %p
+                This is another test
+                I wonder why this is acting up
+                argh
