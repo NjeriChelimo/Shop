@@ -33,8 +33,8 @@ class RegistrationsController < Devise::RegistrationsController
             @ac = @org.accounts.create!(a)
           end
         end
-
-        format.html { redirect_to root_url :notice => "Yay! You riding on Mpayer API! :)"}
+        sign_in(@user)
+        format.html { redirect_to root_url }
         format.json { render :json => @user, status: :created, location: @admin_user }
       else
         format.html { render action: "new" }

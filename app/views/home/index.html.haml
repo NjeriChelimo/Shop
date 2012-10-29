@@ -6,11 +6,12 @@
 %div#all_images
   - @organizations = Organization.all
   - @organizations.each do |organization|
-    = organization.org_no
+    - organization.org_no
     - @accounts = organization.accounts
     - @accounts.each do |account|
-      = account.name
+      - account.name
       - @images = account.images
       - @images.each do |image|
-        = image_tag image.picture.url(:large)
-        = link_to "Image Details", image_path(image.id)
+        %div#images-container.image
+          = image_tag image.picture.url(:large)
+          = link_to "Image Details", account_image_path(account.id, image.id)

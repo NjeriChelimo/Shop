@@ -14,3 +14,44 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+
+
+$(function(){
+  var $container = $('#images-container');
+  $container.imagesLoaded( function(){
+    $container.masonry({
+      itemSelector : '.image',
+      columnWidth : 100
+    });
+  });
+
+  $container.infinitescroll({
+          loading: {
+              finishedMsg: 'No more pages to load.',
+              msg: null,
+              msgText: "<em>Loading the next set of posts...</em>",
+              selector: null,
+              speed: 'fast',
+              start: undefined
+          },
+          state: {
+            isDuringAjax: false,
+            isInvalidPage: false,
+            isDestroyed: false,
+            isDone: false, // For when it goes all the way through the archive.
+            isPaused: false,
+            currPage: 1
+          },
+          // trigger Masonry as a callback
+          function( newElements ) {
+            // hide new items while they are loading
+            var $newElems = $( newElements ).css({ opacity: 0 });
+            // ensure that images load before adding to masonry layout
+            $newElems.imagesLoaded(function(){
+              // show elems now they're ready
+              $newElems.animate({ opacity: 1 });
+              $container.masonry( 'appended', $newElems, true );
+            });
+          }
+        );
+});
