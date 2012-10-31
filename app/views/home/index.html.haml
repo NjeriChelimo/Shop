@@ -14,10 +14,18 @@
       - @images.each do |image|
         %div#images-container.image
           = image_tag image.picture.url(:large)
-          = link_to "Image Details", account_image_path(account.id, image.id)
+          //= link_to "Image Details", account_image_path(account.id, image.id)
 
-          %div id="myModal" class="reveal-modal">
-            %h1 Modal Title
+          %a(href="#" data-reveal-id="myModal" data-animation="fadeAndPop" data-animationspeed="300" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
+
+          %div#myModal.reveal-modal
+            %h1
+              = account.name
             %p
-              Any content could go in here.
-            %a class="close-reveal-modal">&#215;</a>
+              = image.price
+            %p
+              = image.description
+            %p
+              = image.deal
+            %p
+              %a.close-reveal-modal Close
