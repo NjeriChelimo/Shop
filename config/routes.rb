@@ -1,4 +1,6 @@
 Giga::Application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
+
   resources :organizations
   resources :accounts do
     resources :images
