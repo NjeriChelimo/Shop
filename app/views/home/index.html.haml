@@ -15,3 +15,9 @@
         %div#images-container.image
           = image_tag image.picture.url(:large)
           = link_to "Image Details", account_image_path(account.id, image.id)
+
+          %div id="myModal" class="reveal-modal">
+            %h1 Modal Title
+            %p
+              Any content could go in here.
+            %a class="close-reveal-modal">&#215;</a>
