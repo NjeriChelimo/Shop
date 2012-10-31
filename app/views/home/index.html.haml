@@ -9,25 +9,27 @@
     - organization.org_no
     - @accounts = organization.accounts
     - @accounts.each do |account|
-      - account.name
-      - @images = account.images
-      - @images.each do |image|
-        %div#images-container.image
-          = account.name
-          - @pic = image.id
-          = image_tag image.picture.url(:large)
-          %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
+      - @account = account
+      - if @account.ac_type = "ex" || @account.ac_type = "in"
+        - @images = @account.images
+        - @images.each do |image|
+          %div#images-container.image
+            = @account.name
+            = @account.ac_type
+            - @pic = image.id
+            = image_tag image.picture.url(:large)
+            %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
 
-          %div.reveal-modal(id="#{@pic}myModal")
-            %h1
-              = account.name
-            %p
-              = image_tag image.picture.url(:large)
-            %p
-              = image.price
-            %p
-              = image.description
-            %p
-              = image.deal
-            %p
-              %a.close-reveal-modal &#215;
+            %div.reveal-modal(id="#{@pic}myModal")
+              %h1
+                = account.name
+              %p
+                = image_tag image.picture.url(:large)
+              %p
+                = image.price
+              %p
+                = image.description
+              %p
+                = image.deal
+              %p
+                %a.close-reveal-modal &#215;
