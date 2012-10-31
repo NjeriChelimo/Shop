@@ -13,16 +13,17 @@
       - @images = account.images
       - @images.each do |image|
         %div#images-container.image
+          = account.name
           = image_tag image.picture.url(:large)
-          //= link_to "Image Details", account_image_path(account.id, image.id)
-
-          %a(href="#" data-reveal-id="myModal" data-animation="fadeAndPop" data-animationspeed="300" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
+          %a(href="#" data-reveal-id="myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
 
           %div#myModal.reveal-modal
             %h1
               = account.name
             %p
               = image.price
+            %p
+              = image_tag image.picture.url(:large)
             %p
               = image.description
             %p
