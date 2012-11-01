@@ -10,7 +10,8 @@
     - @accounts = organization.accounts
     - @accounts.each do |account|
       - @account = account
-      - if @account.ac_type = "ex" || @account.ac_type = "in"
+      - if (@account.ac_type == "in")
+        = @account.name
         - @images = @account.images
         - @images.each do |image|
           %div#images-container.image
@@ -31,5 +32,7 @@
                 = image.description
               %p
                 = image.deal
+              %p
+                = link_to "More goodies.. :)", account_path(@account.id)
               %p
                 %a.close-reveal-modal &#215;
