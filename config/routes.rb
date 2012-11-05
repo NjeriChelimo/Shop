@@ -1,4 +1,8 @@
 Giga::Application.routes.draw do
+  resources :cart_items
+
+  resources :carts
+
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
   resources :organizations
