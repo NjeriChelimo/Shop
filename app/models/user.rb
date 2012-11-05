@@ -87,7 +87,7 @@ class User
 
   def check_authentication?(response)
     @res_status = response.code
-    if r@es_status == "200"
+    if @res_status == "200"
       return true
     else
       return false
