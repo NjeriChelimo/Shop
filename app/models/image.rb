@@ -14,6 +14,9 @@ class Image
   field :crop_h
   field :account_id#, type: Integer
   field :organization_id#, type: Integer
+  field :description, type: String
+  field :expiry, type: Date
+  field :price, type: String
   has_mongoid_attached_file :picture, :styles => { :small => "100x100#", :large => "250x250>" }, :processors => [:cropper],
 #    :path => ":rails_root/public/system/image/:id/:style/:basename.:extension",
 #    :url  => "/system/image/:id/:style/:basename.:extension"
@@ -25,8 +28,9 @@ class Image
   validates_attachment_size :picture, :less_than => 5.megabytes
 
   belongs_to :accounts
-  attr_accessible :account_id, :organization_id, :picture
-  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h, :picture_file_name, :deal, :description, :price
+
+  attr_accessible :account_id, :organization_id, :picture, :description, :expiry
+  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h, :picture_file_name, :price
   #before_update :reprocess_picture
 
   def cropping?

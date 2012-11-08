@@ -11,6 +11,7 @@ class Account
   field :currency, type: String
   field :total_cr, type: String
   field :total_dr, type: String
+
   has_many :images
   validates_presence_of :ac_type
   belongs_to :organization

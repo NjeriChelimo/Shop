@@ -1,7 +1,7 @@
 = simple_form_for(:image, :url => {:action => 'create'},     :html => {:multipart => true}) do |f|
-  = f.input :price
   = f.input :description
-  = f.input :deal
+  = f.input :price
+  = f.input :expiry
   = f.hidden_field :picture_file_name
   = f.input :price
   = f.input :discount
