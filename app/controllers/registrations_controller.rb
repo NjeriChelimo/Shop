@@ -22,7 +22,7 @@ class RegistrationsController < Devise::RegistrationsController
       if @user.save!
         if @user.update_attributes(@user_update)
           @org_no = @user_details["org_no"]
-          @org = Organization..find_or_create_by({:org_no => @org_no})
+          @org = Organization.find_or_create_by({:org_no => @org_no})
           @user.update_attributes({:organization_id => @org.id})
           @user.save!
           @mpayer = Mpayer.new(@mpayer_user_no, @decrypted_token)

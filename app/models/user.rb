@@ -3,7 +3,6 @@ class User
   rolify
   #resourcify
   include Mongoid::Timestamps
-  #before_save :parse_response, :create_org
 
   belongs_to :organization
   #field :name, :type => String

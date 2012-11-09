@@ -1,14 +1,9 @@
 class Image
   include Mongoid::Document
   include Mongoid::Paperclip
-  field :price
   field :discount
-  field :description, type: String
   field :picture_file_name
   field :crop_x
-  field :price
-  field :description
-  field :deal
   field :crop_y
   field :crop_w
   field :crop_h
@@ -30,7 +25,7 @@ class Image
   belongs_to :accounts
 
   attr_accessible :account_id, :organization_id, :picture, :description, :expiry
-  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h, :picture_file_name, :price
+  attr_accessible :crop_x, :crop_y, :crop_w, :crop_h, :picture_file_name, :price, :discount
   #before_update :reprocess_picture
 
   def cropping?

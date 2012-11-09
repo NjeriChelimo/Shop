@@ -1,17 +1,18 @@
 %h3 Home
 - @users.each do |user|
   %p
-  User: #{link_to user.name, user}
+  User: #{link_to user.name, organization_path(user.organization.id)}
 
 %div#all_images
   - @organizations = Organization.all
   - @organizations.each do |organization|
+    - @organization = organization
     - organization.org_no
     - @accounts = organization.accounts
     - @accounts.each do |account|
       - @account = account
       - if (@account.ac_type == "in")
-        = @account.name
+        = link_to "#{@account.name}", account_path(@account.id)
         - @images = @account.images
         - @images.each do |image|
           %div#images-container.image
