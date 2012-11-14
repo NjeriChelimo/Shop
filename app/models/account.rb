@@ -13,8 +13,7 @@ class Account
   field :total_dr, type: String
 
   has_many :images
-  has_many :cart_items
-  has_and_belongs_to_many :carts
+  belongs_to :cart_item
   validates_presence_of :ac_type
   belongs_to :organization
   attr_accessible :name, :organization_id, :ac_type, :acid, :balance, :mandate, :currency, :total_cr, :total_dr

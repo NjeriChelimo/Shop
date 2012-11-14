@@ -2,6 +2,18 @@
 - @users.each do |user|
   %p
   User: #{link_to user.name, organization_path(user.organization.id)}
+%div(class="simpleCart_items")
+%div(id="cartData" class="clearfix")
+%div(class="cartInfo open")
+  %div(id="cartPopover" style="display:block;")
+  %h3 Total Items
+  %span.simpleCart_quantity.simpleCart_quantity
+  %h2 Cart Total
+  %span.simpleCart_total
+  %a(href="javascript:;" class="simpleCart_empty") Empty Cart
+  %a(href="#" class="saveCart") Save Cart
+  %a(href="#" class="checkout") Checkout
+
 
 %div#all_images
   - @organizations = Organization.all
@@ -19,21 +31,60 @@
             = @account.name
             = @account.ac_type
             - @pic = image.id
-            = image_tag image.picture.url(:large)
-            %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Image Details
+
+            %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal")
+              = image_tag image.picture.url(:large)
+              Image Details
+
+
 
             %div.reveal-modal(id="#{@pic}myModal")
-              %h1
-                = account.name
-              %p
-                = image_tag image.picture.url(:large)
-              %p
-                = image.price
-              %p
-                = image.description
-              %p
-                = image.expiry
-              %p
-                = link_to "More goodies.. :)", account_path(@account.id)
-              %p
-                %a.close-reveal-modal &#215;
+              %div.simpleCart_shelfItem
+                %h2.item_name
+                  = account.name
+                %div
+                  = image_tag image.picture.url(:large)
+                %p.item_price
+                  = image.price
+                %p
+                  = image.description
+                %p
+                  = image.expiry
+                %p
+                  = link_to "More goodies.. :)", account_path(@account.id)
+                %input(type="text" value="1" class="item_Quantity")
+                %a(class="item_add" href="javascript:;") Add to Cart
+                %div.item-decrement
+                  %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
+                %span.item-quantity
+                %span.item-total
+                Cart
+                Items
+                %p
+                  %a.close-reveal-modal &#215;
+
+:javascript
+  $(document).ready(function() {
+    $(".saveCart").click(function Save(){
+        $(".itemRow").each(function(){
+            var itemName = $(this).find(".item-name").text();
+            var itemPrice = $(this).find(".item-price").text();
+            var itemQty = $(this).find(".item-quantity").text();
+            var itemTotal = $(this).find(".item-total").text();
+
+            $.ajax({
+                type: 'POST',
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                url: "#{update_cart_path}",
+                data: {itemName: itemName, itemPrice: itemPrice, itemQty: itemQty, itemTotal: itemTotal},
+                dataType: "script"
+            });
+
+        });
+    });
+
+    $(".checkout").click(function(){
+      Save()
+      simpleCart.empty();
+    });
+  });

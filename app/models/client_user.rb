@@ -41,8 +41,9 @@ class ClientUser
   ## Token authenticatable
   # field :authentication_token, :type => String
 
+  field :name
   field :organization_id
-  has_one :cart
+  has_many :carts
   belongs_to :organization
-  attr_accessible :organization_id
+  attr_accessible :organization_id, :name, :email, :password, :password_confirmation
 end

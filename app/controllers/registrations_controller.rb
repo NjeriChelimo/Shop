@@ -18,7 +18,7 @@ class RegistrationsController < Devise::RegistrationsController
       @mpayer_user_no = @user_details["user_no"]
       @mpayer_user_name = @user_details["user_name"]
       @mpayer_user_role = @user_details["user_role"]
-      @user_update = {:name => @mpayer_user_name, :mpayer_user_id => @mpayer_user_id, :mpayer_user_no => @mpayer_user_no, :role => @mpayer_user_role}
+      @user_update = {:name => @mpayer_user_name, :mpayer_user_id => @mpayer_user_id, :mpayer_user_no => @mpayer_user_no, :role => @mpayer_user_role, :token => @decrypted_token}
       if @user.save!
         if @user.update_attributes(@user_update)
           @org_no = @user_details["org_no"]

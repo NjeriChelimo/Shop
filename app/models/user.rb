@@ -9,7 +9,8 @@ class User
   field :mpayer_user_no, :type => String
   field :mpayer_user_id, :type => String
   field :organization_id, :type => String
-  attr_accessible :mpayer_user_no, :mpayer_user_id, :role, :name, :organization_id
+  field :token, :type => String
+    attr_accessible :mpayer_user_no, :mpayer_user_id, :role, :name, :organization_id, :token
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

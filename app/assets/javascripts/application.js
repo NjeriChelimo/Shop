@@ -117,3 +117,23 @@ $(document).ready(function() {
      dismissmodalclass: 'close-reveal-modal'
   });
 });
+
+
+$(document).ready(function() {
+	  simpleCart({
+		  cartColumns: [
+          { attr: "name" , label: "Name" } ,
+          { attr: "price" , label: "Price", view: 'currency' } ,
+          { view: "decrement" , label: true , text: "Less" } ,
+          { attr: "quantity" , label: "Qty" } ,
+          { view: "increment" , label: true , text: "More" } ,
+          { attr: "total" , label: "SubTotal", view: 'currency' } ,
+          { view: "remove" , text: "Remove" , label: "Remove" }
+      ]
+      checkout: {
+        type: "SendForm" ,
+        url: "http://localhost:3000/carts/new"
+    }
+
+   });
+});
