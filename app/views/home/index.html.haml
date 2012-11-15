@@ -2,10 +2,8 @@
 - @users.each do |user|
   %p
   User: #{link_to user.name, organization_path(user.organization.id)}
-%div(class="simpleCart_items")
-%div(id="cartData" class="clearfix")
-%div(class="cartInfo open")
-  %div(id="cartPopover" style="display:block;")
+
+%div(id="cartData")
   %h3 Total Items
   %span.simpleCart_quantity.simpleCart_quantity
   %h2 Cart Total
@@ -13,6 +11,9 @@
   %a(href="javascript:;" class="simpleCart_empty") Empty Cart
   %a(href="#" class="saveCart") Save Cart
   %a(href="#" class="checkout") Checkout
+%a(href="#" data-reveal-id="#checkoutModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Check Me Out!
+%div.reveal-modal(id="#checkoutModal")
+  %div(class="simpleCart_items")
 
 
 %div#all_images
@@ -35,6 +36,10 @@
             %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal")
               = image_tag image.picture.url(:large)
               Image Details
+            %div.cart-item-details
+              %p.item-cart-id
+                = @account.id
+
 
 
 
@@ -53,6 +58,7 @@
                 %p
                   = link_to "More goodies.. :)", account_path(@account.id)
                 %input(type="text" value="1" class="item_Quantity")
+                %input(type="text" value="#{@pic}" class="item_ac_id")
                 %a(class="item_add" href="javascript:;") Add to Cart
                 %div.item-decrement
                   %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
@@ -65,7 +71,7 @@
 
 :javascript
   $(document).ready(function() {
-    $(".saveCart").click(function Save(){
+    $(".saveCart").click(function(){
         $(".itemRow").each(function(){
             var itemName = $(this).find(".item-name").text();
             var itemPrice = $(this).find(".item-price").text();
@@ -81,10 +87,10 @@
             });
 
         });
+
     });
 
     $(".checkout").click(function(){
-      Save()
       simpleCart.empty();
     });
   });

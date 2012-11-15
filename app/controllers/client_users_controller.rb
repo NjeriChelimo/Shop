@@ -84,19 +84,27 @@ class ClientUsersController < ApplicationController
   def update_cart
     @user = current_client_user
     @cart = @user.carts.create!
-    @item_name = params[:itemName]
-    @item_price = params[:itemPrice]
-    @item_qty = params[:itemQty]
-    @item_subtotal = params[:itemTotal]
-    @cart_item = @cart.cart_items.create!({:name => @item_name, :price => @item_price, :subtotal => @item_subtotal, :quantity => @item_qty})
+    item_name = params[:itemName]
+    item_price = params[:itemPrice]
+    item_qty = params[:itemQty]
+    item_subtotal = params[:itemTotal]
+    item_ac_id = params[:item_ac_id]
+    cart_item = @cart.cart_items.create!({:name => item_name, :price => item_price, :subtotal => item_subtotal, :quantity => item_qty})
+    @account = Account.find(params[:item_ac_id])
+    org_id = @account.organization.id
+    @user.update_attribute({:organization_id => org_id})
+    @org = @user.organization
+    @admin = @org.user
+    token = @admin.token
+    name = @admin.name
+    @mpayer = Mpayer.new(name, token)
+    @client = @mpayer.client
+    client_details = {:client =>{:mandate => "3",:client_type => "ext",:client_name => @user.name,:currency => "kes",:ac_type => "o"}}
+    @new_client = @client.new_client(client_details)
+
     respond_to do |format|
       format.json
       redirect_to client_user_path(@user.id)
-    end
-
-    def checkout_cart
-      @client_user = current_client_user
-      @admin_user = @client_user.
     end
 
   end

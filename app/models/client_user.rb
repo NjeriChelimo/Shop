@@ -42,8 +42,12 @@ class ClientUser
   # field :authentication_token, :type => String
 
   field :name
+  field :mobile
+  field :birthday
   field :organization_id
+  field :client_type
+  field :mandate
   has_many :carts
   belongs_to :organization
-  attr_accessible :organization_id, :name, :email, :password, :password_confirmation
+    attr_accessible :organization_id, :name, :email, :password, :password_confirmation, :mobile, :birthday, :client_type, :mandate
 end

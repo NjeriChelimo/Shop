@@ -130,10 +130,6 @@ $(document).ready(function() {
           { attr: "total" , label: "SubTotal", view: 'currency' } ,
           { view: "remove" , text: "Remove" , label: "Remove" }
       ]
-      checkout: {
-        type: "SendForm" ,
-        url: "http://localhost:3000/carts/new"
-    }
 
    });
 });

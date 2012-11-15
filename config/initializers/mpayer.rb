@@ -257,7 +257,7 @@ end
 
 =begin
 #IMPLEMENTATION
-#njeri = Mpayer.new(user_no="NC0014", token="7DHeBCt9Ka6337owqDSn", headers={'Content-Type'=>'application/json','X-WSSE' => WSSE::header("NC0014", "7DHeBCt9Ka6337owqDSn")})
+#njeri = Mpayer.new("NC0014","7DHeBCt9Ka6337owqDSn")
 #t = njeri.transaction
 #trans = t.trans
 =end
