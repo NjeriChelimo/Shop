@@ -46,66 +46,6 @@ $(function(){
 //        );
 });
 
-$(document).ready(function () {
-	var ratingModal = {
-		container: null,
-		init: function () {
-			$(".image").click(function (e) {
-				e.preventDefault();
-
-				$("#rating_modal").modal({
-					overlayId: 'ratingModal-overlay',
-					containerId: 'ratingModal-container',
-					closeHTML: null,
-					minHeight: 120,
-					opacity: 65,
-					position: ['0',],
-					overlayClose: true,
-					onOpen: ratingModal.open,
-					onClose: ratingModal.close
-				});
-			});
-		},
-		open: function (d) {
-			var self = this;
-			self.container = d.container[0];
-			d.overlay.fadeIn('slow', function () {
-				$("#rating_modal", self.container).show();
-				var title = $("#rating_modal-title", self.container);
-				title.show();
-				d.container.slideDown('fast', function () {
-					setTimeout(function () {
-						var h = $("#rating_modal", self.container).height()
-							+ title.height()
-							+ 20; // padding
-						d.container.animate(
-							{height: h},
-							200,
-							function () {
-								$("div.close", self.container).show();
-								$("#rating_modal", self.container).show();
-							}
-						);
-					}, 300);
-				});
-			})
-		},
-		close: function (d) {
-			var self = this; // this = SimpleModal object
-			d.container.animate(
-				{top:"-" + (d.container.height() + 20)},
-				100,
-				function () {
-					self.close(); // or $.modal.close();
-				}
-			);
-		}
-	};
-
-	ratingModal.init();
-
-});
-
 
 $(document).ready(function() {
      $('#myButton').click(function(e) {

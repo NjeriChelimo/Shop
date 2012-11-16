@@ -84,13 +84,15 @@ class ClientUsersController < ApplicationController
   def update_cart
     @user = current_client_user
     @cart = @user.carts.create!
-    item_name = params[:itemName]
+    item_ac_id = params[:itemName]
     item_price = params[:itemPrice]
     item_qty = params[:itemQty]
     item_subtotal = params[:itemTotal]
-    item_ac_id = params[:item_ac_id]
-    cart_item = @cart.cart_items.create!({:name => item_name, :price => item_price, :subtotal => item_subtotal, :quantity => item_qty})
-    @account = Account.find(params[:item_ac_id])
+    cart_item = @cart.cart_items.create!({:price => item_price, :subtotal => item_subtotal, :quantity => item_qty})
+
+    @account = Account.find(params[:itemName])
+    ac_name = @account.name
+    cart_item.update_attribute({:name => ac_name})
     org_id = @account.organization.id
     @user.update_attribute({:organization_id => org_id})
     @org = @user.organization

@@ -1,11 +1,10 @@
 class AdminsController < ApplicationController
-  # GET /admins
-  # GET /admins.json
+
   def index
     @admins = Admin.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @admins }
     end
   end

@@ -49,5 +49,7 @@ class ClientUser
   field :mandate
   has_many :carts
   belongs_to :organization
+
+
     attr_accessible :organization_id, :name, :email, :password, :password_confirmation, :mobile, :birthday, :client_type, :mandate
 end

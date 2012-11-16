@@ -25,12 +25,6 @@ class CartsController < ApplicationController
   # GET /carts/new.json
   def new
     @cart = Cart.new
-    @item_name = params[:itemName]
-    @item_price = params[:itemPrice]
-    @item_qty = params[:itemQty]
-    @item_subtotal = params[:itemTotal]
-    @cart_item = @cart.cart_items.new ({:name => @item_name, :price => @item_price, :subtotal => @itemsubtotal})
-    @cart.save!
 
     respond_to do |format|
       format.html # new.html.erb
@@ -49,12 +43,6 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(params[:cart])
-    @item_name = params[:itemName]
-    @item_price = params[:itemPrice]
-    @item_qty = params[:itemQty]
-    @item_subtotal = params[:itemTotal]
-    @cart_item = @cart.cart_items.build({:name => @item_name, :price => @item_price, :subtotal => @item_subtotal})
-
 
     respond_to do |format|
       if @cart.save

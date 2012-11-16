@@ -1,19 +1,7 @@
 class AccountsController < ApplicationController
 
   before_filter :authenticate_user!, :except => [:show, :index]
-  # GET /accounts
-  # GET /accounts.json
-#  def index
-#    @accounts = Account.all
 
-#    respond_to do |format|
-#      format.html # index.html.erb
-#      format.json { render json: @accounts }
-#    end
-#  end
-
-  # GET /accounts/1
-  # GET /accounts/1.json
   def show
     @account = Account.find(params[:id])
     @images = @account.images
@@ -25,28 +13,17 @@ class AccountsController < ApplicationController
     end
   end
 
-  # GET /accounts/new
-  # GET /accounts/new.json
   def new
-    #@account = Account.new
     @organization = Organization.find(params[:organization_id])
     @account = @organization.accounts.new(params[:account])
 
-#    respond_to do |format|
-#      format.html # new.html.erb
-#      format.json { render json: @account }
-#    end
   end
 
-  # GET /accounts/1/edit
   def edit
     @account = Account.find(params[:id])
   end
 
-  # POST /accounts
-  # POST /accounts.json
   def create
-    #@account = Account.new(params[:account])
     @organization = Organization.find(params[:organization_id])
     @account = @organization.accounts.create!(params[:account])
 
@@ -61,8 +38,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  # PUT /accounts/1
-  # PUT /accounts/1.json
   def update
     @account = Account.find(params[:id])
 
@@ -77,8 +52,6 @@ class AccountsController < ApplicationController
     end
   end
 
-  # DELETE /accounts/1
-  # DELETE /accounts/1.json
   def destroy
     @account = Account.find(params[:id])
     @account.destroy

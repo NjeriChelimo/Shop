@@ -1,5 +1,3 @@
-
-
 class Mpayer
 
   @@root_url = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api"
