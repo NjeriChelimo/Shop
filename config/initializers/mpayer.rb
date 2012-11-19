@@ -156,7 +156,7 @@ class Client < Mpayer
   def new_client(json_msg)
     #post(@json_msg, "/")
     @json_msg = JSON.generate(json_msg)
-    @link ="/clients/"
+    @link ="/clients.json"
     @url = URI.parse("#{@@root_url}#{@link}")
     send_post_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end

@@ -45,11 +45,12 @@ class ClientUser
   field :mobile
   field :birthday
   field :organization_id
+  field :mpayer_client_id
   field :client_type
   field :mandate
   has_many :carts
   belongs_to :organization
 
 
-    attr_accessible :organization_id, :name, :email, :password, :password_confirmation, :mobile, :birthday, :client_type, :mandate
+    attr_accessible :organization_id, :name, :email, :password, :password_confirmation, :mobile, :birthday, :client_type, :mandate, :mpayer_client_id
 end

@@ -63,6 +63,7 @@
 				// Currencies
 				currencies = {
 					"USD": { code: "USD", symbol: "&#36;", name: "US Dollar" },
+					"KSH": { code: "KSH", symbol: "Ksh. ", name: "Kenyan Shilling" },
 					"AUD": { code: "AUD", symbol: "&#36;", name: "Australian Dollar" },
 					"BRL": { code: "BRL", symbol: "R&#36;", name: "Brazilian Real" },
 					"CAD": { code: "CAD", symbol: "&#36;", name: "Canadian Dollar" },
@@ -88,16 +89,17 @@
 				// default options
 				settings = {
 					checkout				: { type: "PayPal", email: "you@yours.com" },
-					currency				: "USD",
+					currency				: "KSH",
 					language				: "english-us",
 
-					cartStyle				: "div",
+					cartStyle				: "table",
 					cartColumns			: [
 						{ attr: "name", label: "Name" },
+						{ attr: "account", label: "Item Id" },
 						{ attr: "price", label: "Price", view: 'currency' },
-						{ view: "decrement", label: false },
+						{ view: "decrement", label: true, text: "Less" },
 						{ attr: "quantity", label: "Qty" },
-						{ view: "increment", label: false },
+						{ view: "increment", label: true, text: "More"  },
 						{ attr: "total", label: "SubTotal", view: 'currency' },
 						{ view: "remove", text: "Remove", label: false }
 					],
@@ -1024,6 +1026,7 @@
 							send;
 						data['item_name_' + counter]		= item.get('name');
 						data['item_quantity_' + counter]	= item.quantity();
+						data['item_account_' + counter]	= item.account();
 						data['item_price_' + counter]		= item.price();
 						data['item_currency_ ' + counter]	= simpleCart.currency().code;
 						data['item_tax_rate' + counter]		= item.get('taxRate') || simpleCart.taxRate();
@@ -1086,6 +1089,7 @@
 							options_list = [];
 						data['item_title_' + counter]			= item.get('name');
 						data['item_quantity_' + counter]		= item.quantity();
+						data['item_account_' + counter]		= item.account();
 						data['item_price_' + counter]			= item.price();
 						data['item_sku_ ' + counter]			= item.get('sku') || item.id();
 						data['item_merchant_id_' + counter]	= opts.merchant_id;
@@ -1148,10 +1152,11 @@
 							send;
 						data['item_name_' + counter]		= item.get('name');
 						data['item_quantity_' + counter]	= item.quantity();
+						data['item_account_' + counter]	= item.get('account');
 						data['item_price_' + counter]		= item.price();
 
 						// create array of extra options
-						simpleCart.each(item.options(), function (val,x,attr) {
+						simpleCart.each(item_Quantityitem.options(), function (val,x,attr) {
 							// check to see if we need to exclude this from checkout
 							send = true;
 							simpleCart.each(settings.excludeFromCheckout, function (field_name) {

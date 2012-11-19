@@ -2,7 +2,7 @@
 %ul.nav
   - if user_signed_in?
     %li
-      = link_to '#{current_user.name}', organization_path(current_client_user.organization.id)
+      = link_to current_user.name, organization_path(current_user.organization.id)
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
   - else

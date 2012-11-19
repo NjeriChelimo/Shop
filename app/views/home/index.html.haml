@@ -3,7 +3,7 @@
   %p
   User: #{link_to user.name, organization_path(user.organization.id)}
 
-%div(class="simpleCart_items")
+%table(class="simpleCart_items")
 %div(id="cartData")
   %h3 Total Items
   %span.simpleCart_quantity.simpleCart_quantity
@@ -47,7 +47,7 @@
             %div.reveal-modal(id="#{@pic}myModal")
               %div.simpleCart_shelfItem
                 %h2.item_name
-                  = account.name
+                  = @account.name
                 %div
                   = image_tag image.picture.url(:large)
                 %p.item_price
@@ -56,10 +56,12 @@
                   = image.description
                 %p
                   = image.expiry
+                %p.item_account
+                  = account.id
                 %p
                   = link_to "More goodies.. :)", account_path(@account.id)
                 %input(type="text" value="1" class="item_Quantity")
-                %input(type="text" value="#{@account.id}" class="item_ac_id")
+                //%input(type="text" value="#{@account.id}" class="item_account")
                 %a(class="item_add" href="javascript:;") Add to Cart
                 %div.item-decrement
                   %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
@@ -73,20 +75,21 @@
 :javascript
   $(document).ready(function() {
     $(".saveCart").click(function(){
-        $(".simpleCart_shelfItem").each(function(){
+        $(".itemRow").each(function(){
             var itemName = $(this).find(".item-name").text();
             var itemPrice = $(this).find(".item-price").text();
             var itemQty = $(this).find(".item-quantity").text();
             var itemTotal = $(this).find(".item-total").text();
-            var item_ac_id = $(this).find(".item_ac_id").text();
+            var itemId = $(this).find(".item-account").text();
 
             $.ajax({
                 type: 'POST',
                 beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
                 url: "#{update_cart_path}",
-                data: {itemName: itemName, itemPrice: itemPrice, itemQty: itemQty, itemTotal: itemTotal, item_ac_id: item_ac_id},
+                data: {itemName: itemName, itemPrice: itemPrice, itemQty: itemQty, itemTotal: itemTotal, itemId: itemId},
                 dataType: "script"
             });
+            simpleCart.empty();
 
         });
 
@@ -96,15 +99,4 @@
       simpleCart.empty();
     });
 
-    $('.item_add').click(function(){
-      $.ajax({
-        type: 'POST',
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        url: "/client_users/update_cart",
-        data: {
-          item_ac_id : $('.item_ac_id').val()
-        },
-        dataType: "script"
-      });
-    });
   });

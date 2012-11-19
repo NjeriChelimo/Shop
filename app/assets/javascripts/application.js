@@ -63,6 +63,7 @@ $(document).ready(function() {
 	  simpleCart({
 		  cartColumns: [
           { attr: "name" , label: "Name" } ,
+          { attr: "id" , label: "Id" }.
           { attr: "price" , label: "Price", view: 'currency' } ,
           { view: "decrement" , label: true , text: "Less" } ,
           { attr: "quantity" , label: "Qty" } ,
