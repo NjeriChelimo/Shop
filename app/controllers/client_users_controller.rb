@@ -109,11 +109,14 @@ class ClientUsersController < ApplicationController
         mpayer_client_id = mpayer_client_details["id"]
         @user.update_attributes({:mpayer_client_id => mpayer_client_id})
         respond_to do |format|
-          format.html { redirect_to @user }
+          format.html { redirect_to root_url }
           format.json
         end
       end
     end
 
+  end
+  def shop
+    @client_user = current_client_user
   end
 end

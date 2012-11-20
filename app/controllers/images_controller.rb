@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
 
-
   def new
     @image = Image.new(params[:image])
   end

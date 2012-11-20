@@ -1,0 +1,12 @@
+%h1
+  Edit User
+
+%div.edit-user
+
+  = simple_form_for @user do |f|
+    = f.error_notification
+    = f.input :name, :autofocus => true
+    = f.input :email, :required => true
+    = f.input :password, :required => true
+    = f.input :password_confirmation, :required => true
+    = f.button :submit, 'Save Changes', :class => 'btn-primary'

@@ -6,6 +6,9 @@
   %span.simpleCart_total
   %a(href="javascript:;" class="simpleCart_empty") Empty Cart
   %a(href="#" class="saveCart") Checkout
+  //%a(href="#" class="checkout") Checkout
+%a(href="#" data-reveal-id="#checkoutModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal") Check Me Out!
+
 
 %div#all_images
   - @organizations = Organization.all
@@ -27,6 +30,12 @@
             %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal")
               = image_tag image.picture.url(:large)
               Image Details
+            %div.cart-item-details
+              %p.item-cart-id
+                = @account.id
+
+
+
 
             %div.reveal-modal(id="#{@pic}myModal")
               %div.simpleCart_shelfItem
@@ -45,7 +54,8 @@
                 %p
                   = link_to "More goodies.. :)", account_path(@account.id)
                 %input(type="text" value="1" class="item_Quantity")
-                %a(class="item_add" href="javascript:;") Add to Cart
+                %div.close-reveal-modal
+                  %a(class="item_add" href="javascript:;") Add to Cart
                 %div.item-decrement
                   %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
                 %span.item-quantity

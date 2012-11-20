@@ -2,10 +2,23 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new # guest user (not logged in)
-    if user.role == "Admin"
-      can :manage, :all
+    user ||= User.new # admin user (not logged in)
+    if user.role == "admin" || "teller"
+      can :manage, [User, Organization, Account, Image, Role]
+    else
+      can :read, :all
     end
+  end
+
+  def initialize(client)
+    client ||= ClientUser.new # guest user (logged in)
+    can :manage, [ClientUser, Cart, CartItem, Role]
+    can :read, :all
+  end
+  def initialize(admin)
+    admin ||= Admin.new # super-admin user (logged in)
+    can :manage, :all
+  end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)
@@ -28,5 +41,4 @@ class Ability
     #   can :update, Article, :published => true
     #
     # See the wiki for details: https://github.com/ryanb/cancan/wiki/Defining-Abilities
-  end
 end

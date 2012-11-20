@@ -15,6 +15,9 @@
   float: left;
 }
 
+.item_account {
+  display: none;
+}
 
 
 
@@ -24,7 +27,7 @@
 	-------------------------------------------------- */
 
 	.reveal-modal-bg {
-		position: fixed;
+		position: relative;
 		height: 100%;
 		width: 100%;
 		background: #000;
@@ -58,7 +61,7 @@
 	.reveal-modal.large 		{ width: 600px; margin-left: -340px;}
 	.reveal-modal.xlarge 		{ width: 800px; margin-left: -440px;}
 
-	.reveal-modal .close-reveal-modal {
+	.reveal-modal #close-btn {
 		font-size: 22px;
 		line-height: .5;
 		position: absolute;

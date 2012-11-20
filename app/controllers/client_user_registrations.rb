@@ -14,7 +14,7 @@ class ClientUserRegistrationsController < Devise::RegistrationsController
       if @client_user.save!
         @client_user.cart.create!
         sign_in(@client_user)
-        format.html { redirect_to root_url }
+        format.html { redirect_to @client_user }
         format.json { render :json => @user, status: :created, location: @admin_user }
       else
         format.html { render action: "new" }

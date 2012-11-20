@@ -1,27 +1,26 @@
 = link_to "Mega", root_path, :class => 'brand'
 %ul.nav
-  - if user_signed_in?
+  - if !user_signed_in? && !client_user_signed_in?
+    %li#client-login
+      = link_to 'Client Login', new_client_user_session_path
+    %li#client-signup
+      = link_to 'Client Sign Up', new_client_user_registration_path
+    %li#admin-login
+      = link_to 'Admin Login', new_user_session_path
+  - elsif user_signed_in?
     %li
       = link_to current_user.name, organization_path(current_user.organization.id)
     %li
       = link_to 'Logout', destroy_user_session_path, :method=>'delete'
-  - else
     %li
-      = link_to 'Admin Login', new_user_session_path
-  - if client_user_signed_in?
+      = link_to "Settings", edit_user_path(current_user)
+  - elsif client_user_signed_in?
     %li
       = link_to current_client_user.name, client_user_path(current_client_user.id)
     %li
       = link_to 'Logout', destroy_client_user_session_path, :method=>'delete'
   - else
     %li
-      = link_to 'Client Login', new_client_user_session_path
-  - if user_signed_in?
+      = link_to 'Client Sign Up', new_client_user_registration_path
     %li
-      = link_to 'Edit account', edit_user_registration_path
-    - if current_user.has_role? :admin
-      %li
-        = link_to 'Admin', users_path
-    - else
-      %li
-        = link_to 'Sign in', new_user_registration_path
+      = link_to 'Admin Sign In', new_user_registration_path

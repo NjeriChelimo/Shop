@@ -8,6 +8,7 @@
 
   - @client_users.each do |client_user|
     %tr
+      %td= client_user.name
       %td= link_to 'Show', client_user
       %td= link_to 'Edit', edit_client_user_path(client_user)
       %td= link_to 'Destroy', client_user, method: :delete, data: { confirm: 'Are you sure?' }

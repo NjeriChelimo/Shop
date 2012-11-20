@@ -1,7 +1,5 @@
 class AccountsController < ApplicationController
 
-  before_filter :authenticate_user!, :except => [:show, :index]
-
   def show
     @account = Account.find(params[:id])
     @images = @account.images
