@@ -1,44 +1,36 @@
 class ClientUsersController < ApplicationController
-  # GET /client_users
-  # GET /client_users.json
+
   def index
     @client_users = ClientUser.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @client_users }
     end
   end
 
-  # GET /client_users/1
-  # GET /client_users/1.json
   def show
     @client_user = ClientUser.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @client_user }
     end
   end
 
-  # GET /client_users/new
-  # GET /client_users/new.json
   def new
     @client_user = ClientUser.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @client_user }
     end
   end
 
-  # GET /client_users/1/edit
   def edit
     @client_user = ClientUser.find(params[:id])
   end
 
-  # POST /client_users
-  # POST /client_users.json
   def create
     @client_user = ClientUser.new(params[:client_user])
 
@@ -53,8 +45,6 @@ class ClientUsersController < ApplicationController
     end
   end
 
-  # PUT /client_users/1
-  # PUT /client_users/1.json
   def update
     @client_user = ClientUser.find(params[:id])
 
@@ -69,8 +59,6 @@ class ClientUsersController < ApplicationController
     end
   end
 
-  # DELETE /client_users/1
-  # DELETE /client_users/1.json
   def destroy
     @client_user = ClientUser.find(params[:id])
     @client_user.destroy

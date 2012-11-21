@@ -1,47 +1,39 @@
 class OrganizationsController < ApplicationController
-  # GET /organizations
-  # GET /organizations.json
+
   def index
     @organizations = Organization.all
     @user = current_user
     @organization = @user.organization
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render :json => @organization }
     end
   end
 
-  # GET /organizations/1
-  # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
     @accounts = @organization.accounts
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render :json => @organization }
     end
   end
 
-  # GET /organizations/new
-  # GET /organizations/new.json
   def new
     @organization = Organization.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render :json => @organization }
     end
   end
 
-  # GET /organizations/1/edit
   def edit
     @organization = Organization.find(params[:id])
   end
 
-  # POST /organizations
-  # POST /organizations.json
   def create
     @organization = Organization.new(params[:organization])
 
@@ -56,8 +48,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # PUT /organizations/1
-  # PUT /organizations/1.json
   def update
     @organization = Organization.find(params[:id])
 
@@ -72,8 +62,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  # DELETE /organizations/1
-  # DELETE /organizations/1.json
   def destroy
     @organization = Organization.find(params[:id])
     @organization.destroy

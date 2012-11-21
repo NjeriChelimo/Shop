@@ -1,9 +1,8 @@
 class ClientUserRegistrationsController < Devise::RegistrationsController
   def new
-    #super
     @client_user = ClientUser.new
       respond_to do |format|
-        format.html # new.html.haml
+        format.html
         format.json { render :json => @client_user }
     end
   end

@@ -1,44 +1,36 @@
 class CartItemsController < ApplicationController
-  # GET /cart_items
-  # GET /cart_items.json
+
   def index
     @cart_items = CartItem.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @cart_items }
     end
   end
 
-  # GET /cart_items/1
-  # GET /cart_items/1.json
   def show
     @cart_item = CartItem.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @cart_item }
     end
   end
 
-  # GET /cart_items/new
-  # GET /cart_items/new.json
   def new
     @cart_item = CartItem.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @cart_item }
     end
   end
 
-  # GET /cart_items/1/edit
   def edit
     @cart_item = CartItem.find(params[:id])
   end
 
-  # POST /cart_items
-  # POST /cart_items.json
   def create
     @cart_item = CartItem.new(params[:cart_item])
 
@@ -53,8 +45,6 @@ class CartItemsController < ApplicationController
     end
   end
 
-  # PUT /cart_items/1
-  # PUT /cart_items/1.json
   def update
     @cart_item = CartItem.find(params[:id])
 
@@ -69,8 +59,6 @@ class CartItemsController < ApplicationController
     end
   end
 
-  # DELETE /cart_items/1
-  # DELETE /cart_items/1.json
   def destroy
     @cart_item = CartItem.find(params[:id])
     @cart_item.destroy
