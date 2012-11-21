@@ -1,6 +1,7 @@
 %h3 User
 %p
-  User: #{@user.name}
+  #{@user.name}
 %p
-  Email: #{@user.email if @user.email}
-  = link_to "Organization", organization_path(@user.organization.id)
+  #{@user.email if @user.email}
+%p
+  = link_to "Organization #{@user.organization.org_no}", organization_path(@user.organization.id)

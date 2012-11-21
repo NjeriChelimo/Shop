@@ -40,8 +40,11 @@ function update_crop(coords) {
 <div>
   <%= simple_form_for @image, :url => {:action => "update" },     :html => {:multipart => true} do |f| %>
     <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
-      <%= f.text_field attribute, :id => attribute %>
+      <%= f.hidden_field attribute, :id => attribute %>
     <% end %>
+    <p><%= f.input :price %></p>
+    <p><%= f.input :description %></p>
+    <p><%= f.input :expiry %></p>
     <p><%= f.submit "Crop", :method => :put %></p>
   <% end %>
 </div

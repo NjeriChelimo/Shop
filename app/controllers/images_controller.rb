@@ -5,7 +5,6 @@ class ImagesController < ApplicationController
   end
 
   def show
-    @id = params[:id]
     @image = Image.find(params[:id])
   end
 
@@ -35,7 +34,7 @@ class ImagesController < ApplicationController
       if @image.update_attributes(params[:image])
       @image.picture.reprocess!
       @image.save!
-      format.html { redirect_to organization_account_image_path, :notice => 'Image was successfully updated.' }
+      format.html { redirect_to account_image_path, :notice => 'Image was successfully updated.' }
           format.json { render :json => @image, :status => :created, :location => @image }
       else
         format.html { render :action => "edit" }

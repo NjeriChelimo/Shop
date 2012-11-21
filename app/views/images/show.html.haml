@@ -1,2 +1,11 @@
-= image_tag @image.picture.url(:large)
-= link_to "Crop", edit_account_image_path
+%h2.item_name
+  %div
+    = image_tag @image.picture.url(:large)
+    %p.item_price
+      = @image.price
+    %p
+      = @image.description
+    %p
+      = @image.expiry
+%div
+  = link_to "Crop", edit_account_image_path

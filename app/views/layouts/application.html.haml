@@ -13,6 +13,7 @@
         = javascript_include_tag "simpleCart.min.js"
         = javascript_include_tag 'jquery.mansory.min.js'
         = javascript_include_tag 'jquery.infinitescroll.min.js'
+        = javascript_include_tag 'jqueryinfinitescroll.min.js'
         = yield :scripts
         = csrf_meta_tags
         = yield(:head)
@@ -24,10 +25,8 @@
     #main{:role => "main"}
       .container
         .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
+          = render 'layouts/messages'
+          = yield
           %footer
       / ! end of .container
     / ! end of #main

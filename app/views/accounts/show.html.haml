@@ -1,3 +1,6 @@
-Account #{@account.name}
-= link_to "Add image", new_account_image_path(@account.id), :class=>"btn"
-= render :partial => '/images/images_list'
+%h1
+  Account #{@account.name}
+%div
+  = link_to "Add image", new_account_image_path(@account.id), :class=>"btn"
+%div
+  = render :partial => 'images_list'

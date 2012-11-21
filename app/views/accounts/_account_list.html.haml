@@ -1,20 +1,13 @@
 %h1 Listing accounts
-
-%table
-  %tr
-    %th
-    %th
-    %th
-
+%div
   - @accounts.each do |account|
     - @account = account
     - if (@account.ac_type == "in")
-      %tr
-        %td= account.name
-        - if (@account.ac_type == "in")
-          %td= link_to 'Edit', edit_account_path(account.id), :class=>"btn"
-          %td= link_to 'Account details', account_path( account.id), :class=>"btn"
-          %td= link_to "Images", account_path(account.id), :class=>"btn"
-          - @images = account.images
-          %div#images
-            = render :partial => "images/images_list"
+      = account.name
+      - if (@account.ac_type == "in")
+        %ul
+          = link_to 'Edit', edit_account_path(account.id), :class=>"btn"
+        %ul
+          = link_to 'Account details', account_path( account.id), :class=>"btn"
+        %ul
+          = link_to "Images", account_path(account.id), :class=>"btn"

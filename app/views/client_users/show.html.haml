@@ -1,9 +1,11 @@
-%table(class="simpleCart_items")
-%div(id="cartData")
-  %h3 Total Items
-  %span.simpleCart_quantity.simpleCart_quantity
+%div#cartData
   %h2 Cart Total
   %span.simpleCart_total
+  %h3 Total Items
+  %span.simpleCart_quantity.simpleCart_quantity
+%div
+  %table(class="simpleCart_items")
+%div
   %a(href="javascript:;" class="simpleCart_empty") Empty Cart
   %a(href="#" class="saveCart") Checkout
 

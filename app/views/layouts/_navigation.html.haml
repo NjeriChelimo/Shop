@@ -1,24 +1,38 @@
-= link_to "Mega", root_path, :class => 'brand'
+= link_to "Giga", root_path, :class => 'brand'
 %ul.nav
   - if !user_signed_in? && !client_user_signed_in?
     %li#client-login
-      = link_to 'Client Login', new_client_user_session_path
+      = link_to 'Shopper Login', new_client_user_session_path
     %li#client-signup
-      = link_to 'Client Sign Up', new_client_user_registration_path
+      = link_to 'Shopper Sign Up', new_client_user_registration_path
     %li#admin-login
-      = link_to 'Admin Login', new_user_session_path
+      = link_to 'I am Admin', new_user_session_path
   - elsif user_signed_in?
-    %li
-      = link_to current_user.name, organization_path(current_user.organization.id)
-    %li
-      = link_to 'Logout', destroy_user_session_path, :method=>'delete'
-    %li
-      = link_to "Settings", edit_user_path(current_user)
+    %div(class="dropdown pull-right")
+      %a(class="btn dropdown-toggle" data-toggle="dropdown" href="#")
+        = current_user.name
+        %span(class="caret")
+      %ul(class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel")
+        %li
+          = link_to "Profile", user_path(current_user.id)
+        %li
+          = link_to "Settings", edit_user_registration_path(current_user.id)
+        %li
+          = link_to "Admin", organization_path(current_user.organization.id)
+        %li
+          = link_to 'Logout', destroy_user_session_path, :method=>'delete'
   - elsif client_user_signed_in?
-    %li
-      = link_to current_client_user.name, client_user_path(current_client_user.id)
-    %li
-      = link_to 'Logout', destroy_client_user_session_path, :method=>'delete'
+    %div(class="dropdown pull-right")
+      %a(class="btn dropdown-toggle" data-toggle="dropdown" href="#")
+        = current_client_user.name
+        %span(class="caret")
+      %ul(class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel")
+        %li
+          = link_to "Profile", client_user_path(current_client_user.id)
+        %li
+          = link_to "Settings", edit_client_user_registration_path(current_client_user.id)
+        %li
+          = link_to 'Logout', destroy_client_user_session_path, :method=>'delete'
   - else
     %li
       = link_to 'Client Sign Up', new_client_user_registration_path
