@@ -34,7 +34,7 @@
               %div.simpleCart_shelfItem
                 %h2.item_name
                   = @account.name
-                %div
+                %div.item_image
                   = image_tag image.picture.url(:large)
                 %p.item_price
                   = image.price
@@ -46,7 +46,11 @@
                   = account.id
                 %p
                   = link_to "More goodies.. :)", account_path(@account.id)
+                %p
+                  = link_to "Quick Buy", shop_path(@account.id)
                 %input(type="text" value="1" class="item_Quantity")
+                %div(class="item-thumb ")
+                  %img(src="#{image.picture.url(:small)}")
                 %a(class="item_add" href="javascript:;") Add to Cart
                 %div.item-decrement
                   %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart

@@ -104,7 +104,5 @@ class ClientUsersController < ApplicationController
     end
 
   end
-  def shop
-    @client_user = current_client_user
-  end
+
 end

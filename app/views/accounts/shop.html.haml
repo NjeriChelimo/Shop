@@ -1,0 +1,12 @@
+%h1
+  Organization #{@organization.org_no}
+%h2.item_name
+  = @account.name
+%div
+  = image_tag image.picture.url(:large)
+%p.item_price
+  = image.price
+%p
+  = image.description
+%p
+  = image.expiry

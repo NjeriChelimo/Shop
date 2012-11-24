@@ -96,6 +96,7 @@
 					cartColumns			: [
 						{ attr: "name", label: "Name" },
 						{ attr: "account", label: "Item Id" },
+						{view:'image' , attr:'thumb', label: "Image"},
 						{ attr: "price", label: "Price", view: 'currency' },
 						{ view: "decrement", label: true, text: "Less" },
 						{ attr: "quantity", label: "Qty" },

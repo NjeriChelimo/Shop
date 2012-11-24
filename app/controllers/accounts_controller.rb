@@ -59,4 +59,11 @@ class AccountsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def shop
+    @client_user = current_client_user
+    @account = Account.find(params[:account_id])
+    @organization = @account.organization
+    @admin_user = @organization.user
+  end
 end
