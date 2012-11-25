@@ -1,5 +1,5 @@
 development:
-  # Configure available database sessions. (required)
+  # Configure available database sessions. (require	d)
   sessions:
     # Defines the default session. (required)
     default:
@@ -78,3 +78,11 @@ test:
         # low amounts for fast failures.
         max_retries: 1
         retry_interval: 0
+
+production:
+  uri: <%= ENV['MONGOHQ_URL'] %>
+  host: <%= ENV['MONGOID_HOST'] %>
+  port: <%= ENV['MONGOID_PORT'] %>
+  username: <%= ENV['MONGOID_USERNAME'] %>
+  password: <%= ENV['MONGOID_PASSWORD'] %>
+  database: <%= ENV['MONGOID_DATABASE'] %>

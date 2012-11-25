@@ -29,3 +29,6 @@ gem 'wsse'
 #gem 'net/https'
 gem 'json'
 gem 'rails_admin'
+group :production do
+  gem 'thin'
+end
