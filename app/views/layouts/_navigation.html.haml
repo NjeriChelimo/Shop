@@ -21,6 +21,8 @@
           = link_to "Admin", organization_path(current_user.organization.id)
         %li
           = link_to 'Logout', destroy_user_session_path, :method=>'delete'
+    %li
+      = link_to "All Shops", organizations_path
   - elsif client_user_signed_in?
     %div(class="dropdown pull-right")
       %a(class="btn dropdown-toggle" data-toggle="dropdown" href="#")
@@ -33,6 +35,8 @@
           = link_to "Settings", edit_client_user_registration_path(current_client_user.id)
         %li
           = link_to 'Logout', destroy_client_user_session_path, :method=>'delete'
+    %li
+      = link_to "All Shops", organizations_path
   - else
     %li
       = link_to 'Client Sign Up', new_client_user_registration_path

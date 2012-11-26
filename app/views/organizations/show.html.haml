@@ -2,8 +2,7 @@
   Organization
 %p
   Organization: #{@organization.org_no}
-%p
-  = link_to 'Edit Organization', edit_organization_path(@organization), :class=>"btn"
-%p
-  = link_to 'Back', organizations_path, :class=>"btn"
+- if user_signed_in?
+  %p
+    = link_to 'Back', organizations_path, :class=>"btn"
 = render :partial => '/accounts/account_list'

@@ -1,4 +1,4 @@
-%h1 Listing organizations
+%h1 Listing Shops
 
 %table
   %tr
@@ -7,11 +7,7 @@
     %th
 
     %tr
-      %td= @organization.org_no
-      %td= link_to 'Show', @organization
-      %td= link_to 'Edit', edit_organization_path(@organization)
-      %td= link_to 'Destroy', @organization, method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
-
-= link_to 'New Organization', new_organization_path
+      - @organizations.each do |organization|
+        %td= organization.org_no
+        - @accounts = organization.accounts
+        %td= link_to 'Products', organization

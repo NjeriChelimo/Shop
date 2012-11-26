@@ -1,4 +1,17 @@
 - @images.each do |image|
-  = image_tag image.picture.url(:large)
-
-  = link_to "Product Details", account_image_path(@account.id, image.id)
+  %div
+    = image_tag image.picture.url(:large)
+  %p
+    Price:
+    = image.price
+  %p
+    Description:
+    = image.description
+  %p
+    Expiry:
+    = image.expiry
+  %p
+    Discount:
+    = image.discount
+  %p
+    = link_to "Product Details", account_image_path(@account.id, image.id)

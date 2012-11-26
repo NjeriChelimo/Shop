@@ -2,12 +2,16 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations = Organization.all
-    @user = current_user
-    @organization = @user.organization
-
     respond_to do |format|
-      format.html
-      format.json { render :json => @organization }
+      if user_signed_in?
+        @user = current_user
+        @organization = @user.organization
+        format.html
+        format.json { render :json => @organization }
+      else
+        format.html
+        format.json { render :json => @organizations }
+      end
     end
   end
 
@@ -30,10 +34,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  def edit
-    @organization = Organization.find(params[:id])
-  end
-
   def create
     @organization = Organization.new(params[:organization])
 
@@ -45,30 +45,6 @@ class OrganizationsController < ApplicationController
         format.html { render action: "new" }
         format.json { render :json => @organization.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  def update
-    @organization = Organization.find(params[:id])
-
-    respond_to do |format|
-      if @organization.update_attributes(params[:organization])
-        format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render :json => @organization.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @organization = Organization.find(params[:id])
-    @organization.destroy
-
-    respond_to do |format|
-      format.html { redirect_to organizations_url }
-      format.json { head :no_content }
     end
   end
 end

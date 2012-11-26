@@ -17,10 +17,6 @@ class AccountsController < ApplicationController
 
   end
 
-  def edit
-    @account = Account.find(params[:id])
-  end
-
   def create
     @organization = Organization.find(params[:organization_id])
     @account = @organization.accounts.create!(params[:account])
@@ -34,36 +30,5 @@ class AccountsController < ApplicationController
         format.json { render json: @account.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  def update
-    @account = Account.find(params[:id])
-
-    respond_to do |format|
-      if @account.update_attributes(params[:account])
-        format.html { redirect_to @account, notice: 'Account was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    @account = Account.find(params[:id])
-    @account.destroy
-
-    respond_to do |format|
-      format.html { redirect_to accounts_url }
-      format.json { head :no_content }
-    end
-  end
-
-  def shop
-    @client_user = current_client_user
-    @account = Account.find(params[:account_id])
-    @organization = @account.organization
-    @admin_user = @organization.user
   end
 end

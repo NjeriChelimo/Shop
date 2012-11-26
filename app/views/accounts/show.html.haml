@@ -1,6 +1,8 @@
 %h1
   Account #{@account.name}
-%div
-  = link_to "Add image", new_account_image_path(@account.id), :class=>"btn"
-%div
-  = render :partial => 'images_list'
+- if user_signed_in?
+  %div
+    %ul
+      = link_to "Add image", new_account_image_path(@account.id), :class=>"btn"
+  %div
+    = render :partial => 'images_list'

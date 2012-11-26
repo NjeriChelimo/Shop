@@ -5,9 +5,22 @@
     - if (@account.ac_type == "in")
       = account.name
       - if (@account.ac_type == "in")
-        %ul
-          = link_to 'Edit', edit_account_path(account.id), :class=>"btn"
-        %ul
-          = link_to 'Account details', account_path( account.id), :class=>"btn"
-        %ul
-          = link_to "Images", account_path(account.id), :class=>"btn"
+        - if user_signed_in?
+          %ul
+            = link_to 'Account details', account_path( account.id), :class=>"btn"
+        - @images = @account.images
+        - @images.each do |image|
+          %div
+            = image_tag image.picture.url(:large)
+          %p
+            Price:
+            = image.price
+          %p
+            Description:
+            = image.description
+          %p
+            Expiry:
+            = image.expiry
+          %p
+            Discount:
+            = image.discount           
