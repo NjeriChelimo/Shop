@@ -1,5 +1,5 @@
 class ClientUsersController < ApplicationController
-
+  before_filter :authenticate_client_user!, :except => [:index, :show, :new, :create, :edit, :update ]
   def index
     @client_users = ClientUser.all
 
@@ -70,39 +70,41 @@ class ClientUsersController < ApplicationController
   end
 
   def update_cart
-    @user = current_client_user
-    @cart = @user.carts.create!
-    item_name = params[:itemName]
-    item_name = item_name.gsub! "\n,", ""
-    item_price = params[:itemPrice]
-    item_qty = params[:itemQty]
-    item_subtotal = params[:itemTotal]
-    item_id = params[:itemId]
-    item_id = item_id.gsub! "\n", ""
-    @cart_item = @cart.cart_items.new({:name => item_name, :price => item_price, :subtotal => item_subtotal, :quantity => item_qty})
-
-    if @cart_item.save!
-      @account = Account.find(item_id)
-      org_id = @account.organization.id
-      if @user.update_attributes({:organization_id => org_id})
-        @org = @user.organization
-        @admin = @org.users
-        token = @admin.token
-        mpayer_user_no = @admin.mpayer_user_no
-        @mpayer = Mpayer.new(mpayer_user_no, token)
-        @client = @mpayer.client
-        client_details = {:client =>{:mandate => "3",:client_type => "ext",:client_name => @user.name,:currency => "kes",:ac_type => "o"}}
-        new_client = @client.new_client(client_details)
-        mpayer_client_details = JSON.parse(new_client)
-        mpayer_client_id = mpayer_client_details["id"]
-        @user.update_attributes({:mpayer_client_id => mpayer_client_id})
-        respond_to do |format|
-          format.html { redirect_to root_url }
-          format.json
+    if client_user_signed_in?
+      @user = current_client_user
+      @cart = @user.carts.create!
+      item_name = params[:itemName]
+      item_name = item_name.gsub! "\n,", ""
+      item_price = params[:itemPrice]
+      item_qty = params[:itemQty]
+      item_subtotal = params[:itemTotal]
+      item_id = params[:itemId]
+      item_id = item_id.gsub! "\n", ""
+      @cart_item = @cart.cart_items.new({:name => item_name, :price => item_price, :subtotal => item_subtotal, :quantity => item_qty})
+      if @cart_item.save!
+        @account = Account.find(item_id)
+        org_id = @account.organization.id
+        if @user.update_attributes({:organization_id => org_id})
+          @org = @user.organization
+          @admin = @org.users
+          token = @admin.token
+          mpayer_user_no = @admin.mpayer_user_no
+          @mpayer = Mpayer.new(mpayer_user_no, token)
+          @client = @mpayer.client
+          client_details = {:client =>{:mandate => "3",:client_type => "ext",:client_name => @user.name,:currency => "kes",:ac_type => "o"}}
+          new_client = @client.new_client(client_details)
+          mpayer_client_details = JSON.parse(new_client)
+          mpayer_client_id = mpayer_client_details["id"]
+          @user.update_attributes({:mpayer_client_id => mpayer_client_id})
+          respond_to do |format|
+            format.html { redirect_to root_url }
+            format.json
+          end
         end
       end
+    else
+      render :js => "window.location = '/client_users/sign_in'"
     end
-
   end
 
 end

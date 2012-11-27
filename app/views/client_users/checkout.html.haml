@@ -1,0 +1,40 @@
+%div#cartData
+  %h2 Cart Total
+  %span.simpleCart_total
+  %h3 Total Items
+  %span.simpleCart_quantity.simpleCart_quantity
+%div
+  %table(class="simpleCart_items")
+%div
+  %a(href="javascript:;" class="simpleCart_empty") Empty Cart
+  %a(href="#" class="saveCart") Checkout
+
+
+  :javascript
+  $(document).ready(function() {
+    $(".saveCart").click(function(){
+        $(".itemRow").each(function(){
+            var itemName = $(this).find(".item-name").text();
+            var itemPrice = $(this).find(".item-price").text();
+            var itemQty = $(this).find(".item-quantity").text();
+            var itemTotal = $(this).find(".item-total").text();
+            var itemId = $(this).find(".item-account").text();
+
+            $.ajax({
+                type: 'POST',
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                url: "#{update_cart_path}",
+                data: {itemName: itemName, itemPrice: itemPrice, itemQty: itemQty, itemTotal: itemTotal, itemId: itemId},
+                dataType: "script"
+            });
+            simpleCart.empty();
+
+        });
+
+    });
+
+    $(".checkout").click(function(){
+      simpleCart.empty();
+    });
+
+  });

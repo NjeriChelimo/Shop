@@ -1,4 +1,4 @@
--if client_user_signed_in?
+%div
   %div#cartData
     %h2 Cart Total
     %span.simpleCart_total
@@ -10,7 +10,7 @@
     %p
       %a(href="javascript:;" class="simpleCart_empty") Empty Cart
     %p
-      %a(href="#" class="saveCart") Checkout
+      = link_to "Shop", checkout_path
 
 %div#all_images
   - @organizations = Organization.all
@@ -45,11 +45,10 @@
                   = image.expiry
                 %p.item_account
                   = account.id
-                - if client_user_signed_in?
+                %div
                   %p
                     = link_to "More goodies.. :)", account_path(@account.id)
                   %p
-                    = link_to "Quick Buy", shop_path(@account.id)
                   %input(type="text" value="1" class="item_Quantity")
                   %div(class="item-thumb ")
                     %img(src="#{image.picture.url(:small)}")
@@ -65,26 +64,6 @@
 
 :javascript
   $(document).ready(function() {
-    $(".saveCart").click(function(){
-        $(".itemRow").each(function(){
-            var itemName = $(this).find(".item-name").text();
-            var itemPrice = $(this).find(".item-price").text();
-            var itemQty = $(this).find(".item-quantity").text();
-            var itemTotal = $(this).find(".item-total").text();
-            var itemId = $(this).find(".item-account").text();
-
-            $.ajax({
-                type: 'POST',
-                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-                url: "#{update_cart_path}",
-                data: {itemName: itemName, itemPrice: itemPrice, itemQty: itemQty, itemTotal: itemTotal, itemId: itemId},
-                dataType: "script"
-            });
-            simpleCart.empty();
-
-        });
-
-    });
 
     $(".checkout").click(function(){
       simpleCart.empty();

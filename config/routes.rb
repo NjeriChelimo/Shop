@@ -6,7 +6,7 @@ Giga::Application.routes.draw do
   resources :home
 
   post 'client_users/update_cart', :as => 'update_cart'
-  get 'accounts/shop', :as => 'shop'
+  get 'client_users/checkout', :as => 'checkout'
 
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
