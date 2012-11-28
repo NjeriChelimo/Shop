@@ -18,7 +18,7 @@ test:
 production:
   sessions:
     default:
-      uri: "mongodb://njerichelimo:ingokho1@hatch.mongohq.com:10034/app003132345"
+      uri: "mongodb://njerichelimo:ingokho1@alex.mongohq.com:10074/app9569726"
       options:
       skip_version_check: true
       safe: true
