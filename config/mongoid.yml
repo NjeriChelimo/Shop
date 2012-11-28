@@ -3,7 +3,7 @@ development:
     default:
       database: giga_development
       hosts:
-        - localhost:27017
+        - localhost:28017
       options:
         consistency: :strong
   options:
@@ -18,7 +18,7 @@ test:
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGOHQ_URL'] %>
+      uri: "mongodb://njerichelimo:ingokho1@hatch.mongohq.com:10034/app003132345"
       options:
-        skip_version_check: true
-        safe: true
+      skip_version_check: true
+      safe: true
