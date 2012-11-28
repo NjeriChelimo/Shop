@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem "mongoid", ">= 3.0.9"
 gem "haml", ">= 3.1.7"
 gem "haml-rails", ">= 0.3.5"
-gem "hpricot", ">= 0.8.6",
+gem "hpricot", ">= 0.8.6"
 gem "ruby_parser", ">= 2.3.1"
 gem "factory_girl_rails", ">= 4.1.0"
 gem "bootstrap-sass", ">= 2.1.0.0"
