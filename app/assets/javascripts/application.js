@@ -23,16 +23,13 @@
 
 
 $(document).ready(function(){
-
     var $container = $('#all_images');
-
     $container.imagesLoaded(function(){
       $container.masonry({
         itemSelector: '.box',
         columnWidth: 100
       });
     });
-
     $container.infinitescroll({
       navSelector  : '#page-nav',    // selector for the paged navigation
       nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
@@ -41,19 +38,15 @@ $(document).ready(function(){
           finishedMsg: 'No more pages to load.',
           img: 'http://i.imgur.com/6RMhx.gif'
         }
-      },
-      // trigger Masonry as a callback
+      }),
       function( newElements ) {
-        // hide new items while they are loading
         var $newElems = $( newElements ).css({ opacity: 0 });
-        // ensure that images load before adding to masonry layout
         $newElems.imagesLoaded(function(){
-          // show elems now they're ready
           $newElems.animate({ opacity: 1 });
           $container.masonry( 'appended', $newElems, true );
         });
       }
-    );
+    });
 
 
 
@@ -110,21 +103,4 @@ $(document).ready(function() {
      closeonbackgroundclick: true,
      dismissmodalclass: 'close-reveal-modal'
   });
-});
-
-
-$(document).ready(function() {
-	  simpleCart({
-		  cartColumns: [
-          { attr: "name" , label: "Name" } ,
-          { attr: "id" , label: "Id" }.
-          { attr: "price" , label: "Price", view: 'currency' } ,
-          { view: "decrement" , label: true , text: "Less" } ,
-          { attr: "quantity" , label: "Qty" } ,
-          { view: "increment" , label: true , text: "More" } ,
-          { attr: "total" , label: "SubTotal", view: 'currency' } ,
-          { view: "remove" , text: "Remove" , label: "Remove" }
-      ]
-
-   });
 });
