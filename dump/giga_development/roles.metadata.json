@@ -1,1 +1,0 @@
-{indexes:[{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "giga_development.roles", "name" : "_id_" }, { "v" : 1, "key" : { "name" : 1 }, "unique" : true, "ns" : "giga_development.roles", "name" : "name_1" }, { "v" : 1, "key" : { "name" : 1, "resource_type" : 1, "resource_id" : 1 }, "unique" : true, "ns" : "giga_development.roles", "name" : "name_1_resource_type_1_resource_id_1" }]}
