@@ -5,23 +5,23 @@ class Mpayer
   attr_accessor :user_no, :token, :ref_id, :headers
 
   def initialize(user_no, token, ref_id = Time.now.to_i)
-    user_no = user_no
-    token = token
-    ref_id = ref_id
-    headers = {'Content-Type'=>'application/json','X-WSSE' => WSSE::header(user_no, token)}
+    @user_no = user_no
+    @token = token
+    @ref_id = ref_id
+    @headers = {'Content-Type'=>'application/json','X-WSSE' => WSSE::header(user_no, token)}
   end
 
   def transaction(*opts)
     opts = opts
-    Transaction.new(user_no, token, Time.now.to_i)
+    Transaction.new(@user_no, @token, Time.now.to_i)
   end
 
   def client(*opts)
-    Client.new(user_no, token, Time.now.to_i)
+    Client.new(@user_no, @token, Time.now.to_i)
   end
 
   def mpayer_account(*opts)
-    MpayerAccount.new(user_no, token, Time.now.to_i )
+    MpayerAccount.new(@user_no, @token, Time.now.to_i )
   end
 
 
