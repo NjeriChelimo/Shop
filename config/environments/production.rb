@@ -46,7 +46,7 @@ Giga::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( application.js bootstrap.js bootstrap.min.js jquery.infinitescroll.min.js jquery.Jcrop.js jquery.Jcrop.min.js jquery.mansory.min.js jquery.reveal.js simpleCart.js simpleCart.min.js )
+  config.assets.precompile += %w( application.js bootstrap.js bootstrap.min.js jquery.infinitescroll.min.js jquery.Jcrop.js jquery.Jcrop.min.js jquery.mansory.min.js jquery.reveal.js simpleCart.js simpleCart.min.js application.css.scss bootstrap_and_overrides.css.scss home.css.scss jquery.Jcrop.css reveal.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
