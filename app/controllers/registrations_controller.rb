@@ -2,7 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
   def new
     @admin_user = User.new
       respond_to do |format|
-        format.html
+        format.html # new.html.haml
         format.json { render :json => @user }
     end
   end
