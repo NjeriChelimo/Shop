@@ -1,50 +1,5 @@
 
 
-def mpayer_authenticate(user, password)
-  user = user
-  password = password
-  form_data = "user=#{@user}&password=#{@password}"
-  link = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api/login.json"
-  url = URI.parse("#{@link}")
-  request = send_post_request("#{@link}", url.path, form_data)
-end
-
-def synchronize_mpayer(user, password)
-  response = mpayer_authenticate(user, password)
-  user_details = JSON.parse(response)
-end
-
-def send_get_request(request_domain,path,data,headers=nil)
-  uri = URI.parse(request_domain)
-  http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-  if headers == nil
-    response = http.send_request('GET',path,data)
-  else
-    response = http.send_request('GET',path,data,headers)
-  end
-
-  response.body
-end
-
-def send_post_request(request_domain,path,data,headers=nil)
-  uri = URI.parse(request_domain)
-  http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-
-  if headers == nil
-    response = http.send_request('POST',path,data)
-  else
-    response = http.send_request('POST',path,data,headers)
-  end
-
-  response.body
-end
-
-
 class Mpayer
   @@root_url = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api"
   attr_accessor :user_no, :token, :ref_id, :headers
