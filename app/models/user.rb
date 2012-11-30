@@ -46,8 +46,8 @@ class User
     password = password
     form_data = "user=#{@user}&password=#{@password}"
     link = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api/login.json"
-    url = URI.parse("#{@link}")
-    request = send_post_request("#{@link}", url.path, form_data)
+    url = URI.parse("#{link}")
+    request = send_post_request("#{link}", url.path, form_data)
   end
 
   def synchronize_mpayer(user, password)
