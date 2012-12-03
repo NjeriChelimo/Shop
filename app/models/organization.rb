@@ -4,5 +4,6 @@ class Organization
   has_one :users
   has_many :client_users
   field :org_no, type: String
-  attr_accessible :org_no
+  field :name
+  attr_accessible :org_no, field :name
 end
