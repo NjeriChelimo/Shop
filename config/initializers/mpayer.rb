@@ -25,20 +25,6 @@ class Mpayer
   end
 
 
-  def mpayer_authenticate(user, password)
-    user = user
-    password = password
-    form_data = "user=#{@user}&password=#{@password}"
-    link = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api/login.json"
-    url = URI.parse("#{@link}")
-    request = send_post_request("#{@link}", url.path, form_data)
-  end
-
-  def synchronize_mpayer(user, password)
-    response = mpayer_authenticate(user, password)
-    user_details = JSON.parse(response)
-  end
-
   def send_get_request(request_domain,path,data,headers=nil)
     uri = URI.parse(request_domain)
     http = Net::HTTP.new(uri.host, uri.port)
@@ -213,14 +199,14 @@ class Client < Mpayer
   end
 
   def payables
-    link ="/clients/#{@id}/payables"
+    @link ="/clients/#{@id}/payables"
     url = URI.parse("#{@@root_url}#{@link}")
     send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
   end
 
   def find_payable(payable_id)
     payable = payable_id
-    link ="/clients/#{@id}/payables/#{@payable_id}"
+    @link ="/clients/#{@id}/payables/#{@payable_id}"
     url = URI.parse("#{@@root_url}#{@link}")
     send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
   end
@@ -241,14 +227,14 @@ class MpayerAccount < Mpayer
   end
 
   def all_accounts
-    link ="/accounts/all_accounts.json"
+    @link ="/accounts/all_accounts.json"
     url = URI.parse("#{@@root_url}#{@link}")
     send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
   end
 
   def find_account(id)
     id = id
-    link ="/accounts/#{@id}.json"
+    @link ="/accounts/#{@id}.json"
     url = URI.parse("#{@@root_url}#{@link}")
     send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
   end
