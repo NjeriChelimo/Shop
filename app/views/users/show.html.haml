@@ -2,6 +2,6 @@
 %p
   #{@user.name}
 %p
-  #{@user.email if @user.email}
+  #{@user.email)
 %p
-  = link_to "Organization #{@user.organization.org_no}", organization_path(@user.organization.id)
+  = link_to " My Organization", organization_path(@user.organization.id)
