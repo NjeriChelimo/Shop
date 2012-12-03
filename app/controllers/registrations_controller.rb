@@ -10,7 +10,11 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(params[:user])
     if User.where({:name => @user.name})
-      sign_in(@user)
+      respond_to do |format|
+        sign_in(@user)
+        format.html { redirect_to @user }
+        format.json { render :json => @user, status: :created, location: @admin_user }
+      end
     else
       respond_to do |format|
         user_details = @user.synchronize_mpayer(@user.name, @user.password)
