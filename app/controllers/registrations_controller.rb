@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(params[:user])
     if User.where({@user.name => :name})
-      redirect to new_user_session_path
+      redirect_to new_user_session_path
     else
       respond_to do |format|
         user_details = @user.synchronize_mpayer(@user.name, @user.password)
