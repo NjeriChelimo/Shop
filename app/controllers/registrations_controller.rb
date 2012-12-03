@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
             mpayer_org_no = user_details["org_no"]
             mpayer_org_name = user_details["org_name"]
             unless Organization.where({:org_no => mpayer_org_no})
-              @org = Organization.create!({:org_no => mpayer_org_no, :org_name => mpayer_org_name})
+              @org = Organization.create!({:org_no => mpayer_org_no, :name => mpayer_org_name})
             end
             @user.update_attributes({:organization_id => @org.id})
             @user.save!
