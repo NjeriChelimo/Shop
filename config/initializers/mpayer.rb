@@ -1,6 +1,5 @@
-
-
 class Mpayer
+
   @@root_url = "https://ec2-72-44-42-20.compute-1.amazonaws.com/api"
   attr_accessor :user_no, :token, :ref_id, :headers
 
@@ -8,11 +7,11 @@ class Mpayer
     @user_no = user_no
     @token = token
     @ref_id = ref_id
-    @headers = {'Content-Type'=>'application/json','X-WSSE' => WSSE::header(user_no, token)}
+    @headers = {'Content-Type'=>'application/json','X-WSSE' => WSSE::header(@user_no, @token)}
   end
 
   def transaction(*opts)
-    opts = opts
+    @opts = opts
     Transaction.new(@user_no, @token, Time.now.to_i)
   end
 
@@ -23,7 +22,6 @@ class Mpayer
   def mpayer_account(*opts)
     MpayerAccount.new(@user_no, @token, Time.now.to_i )
   end
-
 
   def send_get_request(request_domain,path,data,headers=nil)
     uri = URI.parse(request_domain)
@@ -109,37 +107,37 @@ class Transaction < Mpayer
   end
 
   def find(tran_id)
-    id = tran_id
-    link ="/transactions/#{@id}"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @id = tran_id
+    @link ="/transactions/#{@id}"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def all_trans
-    link ="/transactions/all.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @link ="/transactions/all.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def deposit(json_msg)
-    json_msg = JSON.generate(json_msg)
-    link ="/transactions/deposit.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_put_request("#{@@root_url}#{@link}", url.path, json_msg, headers)
+    @json_msg = JSON.generate(json_msg)
+    @link ="/transactions/deposit.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_put_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end
 
   def withdraw(json_msg)
-    json_msg = JSON.generate(json_msg)
-    link ="/transactions/withdraw.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_delete_request("#{@@root_url}#{@link}", url.path, json_msg, headers)
+    @json_msg = JSON.generate(json_msg)
+    @link ="/transactions/withdraw.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_delete_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end
 
   def transfer(json_msg)
-    json_msg_transfer = JSON.generate(json_msg)
-    link ="/transactions/transfer.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_post_request("#{@@root_url}#{@link}", url.path, json_msg_transfer, headers)
+    @json_msg_transfer = JSON.generate(json_msg)
+    @link ="/transactions/transfer.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_post_request("#{@@root_url}#{@link}", @url.path, @json_msg_transfer, @headers)
   end
 end
 
@@ -150,73 +148,84 @@ class Client < Mpayer
   end
 
   def all_clients
-    link ="/clients/all_clients.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @link ="/clients/all_clients.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def new_client(json_msg)
-    json_msg = JSON.generate(json_msg)
-    link ="/clients.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_post_request("#{@@root_url}#{@link}", url.path, json_msg, headers)
+    #post(@json_msg, "/")
+    @json_msg = JSON.generate(json_msg)
+    @link ="/clients.json"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_post_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end
 
   def mpayer_accounts
-    link ="/clients/#{@id}/accounts"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    #get("/#{@id}/accounts")
+    @link ="/clients/#{@id}/accounts"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
 
   def find_account(account_id)
-    account_id = account_id
-    link ="/clients/#{@id}/accounts/#{@account_id}"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @account_id = account_id
+    #get("/#{@id}/accounts/#{@account_id}")
+    @link ="/clients/#{@id}/accounts/#{@account_id}"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def trans(ac_id)
-    account_id = ac_id
-    link ="/clients/#{@id}/accounts/#{@account_id}/transactions"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @account_id = ac_id
+    #get("/#{@id}/accounts/#{@account_id}/transactions")
+    @link ="/clients/#{@id}/accounts/#{@account_id}/transactions"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def trans_sets(ac_id)
-    account_id = ac_id
-    link ="/clients/#{@id}/accounts/#{@account_id}/transaction_sets"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @account_id = ac_id
+    #get("/#{@id}/accounts/#{@account_id}/transaction_sets")
+    @link ="/clients/#{@id}/accounts/#{@account_id}/transaction_sets"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def find_tran(ac_id, tran_id)
-    account_id = ac_id
-    tran_id = tran_id
-    link ="/clients/#{@id}/accounts/#{@account_id}/transactions/#{@tran_id}"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @account_id = ac_id
+    @tran_id = tran_id
+    #get("/#{@id}/accounts/#{@account_id}/transactions/#{@tran_id}")
+    @link ="/clients/#{@id}/accounts/#{@account_id}/transactions/#{@tran_id}"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
+    p @url
   end
 
   def payables
+    #get("/#{@id}/payables")
     @link ="/clients/#{@id}/payables"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @url = URI.parse("#{@@root_url}#{@link}")
+    p @url
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def find_payable(payable_id)
-    payable = payable_id
+    @payable = payable_id
+    #get("/#{@id}/payables/#{@payable_id}")
     @link ="/clients/#{@id}/payables/#{@payable_id}"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def new_account(json_msg)
-    json_msg = json_msg
-    json_msg = JSON.generate(json_msg)
-    link ="/clients/#{@id}/accounts/new"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_post_request("#{@@root_url}#{@link}", url.path, json_msg, headers)
+    @json_msg = json_msg
+    #post(@json_msg, "/#{@id}/accounts/new")
+    @json_msg = JSON.generate(json_msg)
+    @link ="/clients/#{@id}/accounts/new"
+    @url = URI.parse("#{@@root_url}#{@link}")
+    send_post_request("#{@@root_url}#{@link}", @url.path, @json_msg, @headers)
   end
 end
 
@@ -227,16 +236,20 @@ class MpayerAccount < Mpayer
   end
 
   def all_accounts
+    #get("/all_accounts.json")
     @link ="/accounts/all_accounts.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @url = URI.parse("#{@@root_url}#{@link}")
+    p @url
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 
   def find_account(id)
-    id = id
+    @id = id
+    #get("/accounts/#{@id}.json")
     @link ="/accounts/#{@id}.json"
-    url = URI.parse("#{@@root_url}#{@link}")
-    send_get_request("#{@@root_url}#{@link}", url.path, "", headers)
+    @url = URI.parse("#{@@root_url}#{@link}")
+    p @url
+    send_get_request("#{@@root_url}#{@link}", @url.path, "", @headers)
   end
 end
 
@@ -245,5 +258,5 @@ end
 #njeri = Mpayer.new("NC0014","7DHeBCt9Ka6337owqDSn")
 #t = njeri.transaction
 #trans = t.trans
-dep = tran.dep(args)
 =end
+#dep = tran.dep(args)
