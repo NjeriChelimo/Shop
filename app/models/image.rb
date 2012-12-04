@@ -45,6 +45,7 @@ class Image
 
   def expired?(expiry)
     time = Date.today
+    expiry = Date.new unless expiry
     if time >= expiry
       return true
     else
