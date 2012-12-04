@@ -9,7 +9,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(params[:user])
-    if User.where({:name => @user.name})
+    #if User.where({:name => @user.name})
+    if false
       respond_to do |format|
         format.html { redirect_to new_user_session_path :notice => "Please log in"}
         format.json { render :json => @user, status: :created, location: @admin_user }
