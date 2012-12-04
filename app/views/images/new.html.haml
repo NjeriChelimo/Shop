@@ -1,7 +1,7 @@
 = simple_form_for(:image, :url => {:action => 'create'},     :html => {:multipart => true}) do |f|
   = f.input :description
   = f.input :price
-  = f.input :expiry
+  = f.input :deadline, :as => :string, :input_html => { :class => 'date_picker' }
   = f.hidden_field :picture_file_name
   = f.input :discount
   = f.file_field :picture

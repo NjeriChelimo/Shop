@@ -42,4 +42,6 @@ class Image
   def reprocess_picture
     picture.reprocess!
   end
+
+
 end
