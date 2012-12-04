@@ -23,44 +23,45 @@
       - if (@account.ac_type == "in")
         - @images = @account.images
         - @images.each do |image|
-          %div#images-container.image
-            = link_to "#{@account.name}", account_path(@account.id)
-            - @pic = image.id
+          - if expired?(image.expiry)
+            %div#images-container.image
+              = link_to "#{@account.name}", account_path(@account.id)
+              - @pic = image.id
 
-            %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal")
-              = image_tag image.picture.url(:large)
-              Image Details
+              %a(href="#" data-reveal-id="#{@pic}myModal" data-animation="fade" data-animationspeed="100" data-closeonbackgroundclick="true" data-dismissmodalclass="close-reveal-modal")
+                = image_tag image.picture.url(:large)
+                Image Details
 
-            %div.reveal-modal(id="#{@pic}myModal")
-              %div.simpleCart_shelfItem
-                %h2.item_name
-                  = @account.name
-                %div.item_image
-                  = image_tag image.picture.url(:large)
-                %p.item_price
-                  = image.price
-                %p
-                  = image.description
-                %p
-                  = image.expiry
-                %p.item_account
-                  = account.id
-                %div
+              %div.reveal-modal(id="#{@pic}myModal")
+                %div.simpleCart_shelfItem
+                  %h2.item_name
+                    = @account.name
+                  %div.item_image
+                    = image_tag image.picture.url(:large)
+                  %p.item_price
+                    = image.price
                   %p
-                    = link_to "More goodies.. :)", account_path(@account.id)
+                    = image.description
                   %p
-                  %input(type="text" value="1" class="item_Quantity")
-                  %div(class="item-thumb ")
-                    %img(src="#{image.picture.url(:small)}")
-                  %a(class="item_add" href="javascript:;") Add to Cart
-                  %div.item-decrement
-                    %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
-                  %span.item-quantity
-                  %span.item-total
-                  Cart
-                  Items
-                %p
-                  %a.close-reveal-modal &#215;
+                    = image.expiry
+                  %p.item_account
+                    = account.id
+                  %div
+                    %p
+                      = link_to "More goodies.. :)", account_path(@account.id)
+                    %p
+                    %input(type="text" value="1" class="item_Quantity")
+                    %div(class="item-thumb ")
+                      %img(src="#{image.picture.url(:small)}")
+                    %a(class="item_add" href="javascript:;") Add to Cart
+                    %div.item-decrement
+                      %a(class="simpleCart_decrement" href="javascript:;") Remove from Cart
+                    %span.item-quantity
+                    %span.item-total
+                    Cart
+                    Items
+                  %p
+                    %a.close-reveal-modal &#215;
 
 :javascript
   $(document).ready(function() {
