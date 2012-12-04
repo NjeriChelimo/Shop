@@ -79,7 +79,8 @@ Giga::Application.configure do
     password: "ingokho1"
   }
 
-
+  config.gem "rmagick",
+  :lib => "RMagick"
 
 end
 Paperclip.options[:command_path] = "/usr/bin"
