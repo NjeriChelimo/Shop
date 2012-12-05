@@ -15,7 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
         #format.html { redirect_to new_user_session_path :notice => "Please log in"}
         #format.json { render :json => @user, status: :created, location: @admin_user }
       #end
-    if admin = User.where({:name => @user.name})
+    unless User.where({:name => @user.name})
       respond_to do |format|
         sign_in(admin)
         format.html { redirect_to root_url }
