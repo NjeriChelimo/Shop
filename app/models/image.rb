@@ -43,9 +43,9 @@ class Image
     picture.reprocess!
   end
 
-  def expired?(expiry)
+  def expired(expiry)
     time = Date.today
-    expiry = 0 unless expiry
+    expiry = Date.new unless expiry
     if time >= expiry
       return true
     else
