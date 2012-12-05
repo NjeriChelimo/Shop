@@ -21,7 +21,7 @@
         = link_to "#{@account.name}", account_path(@account.id)
         - @images = @account.images
         - @images.each do |image|
-          - if image.expired(image.expiry)
+          - unless image.expired(image.expiry)
             %div#images-container.image
               = @account.name
               = @account.ac_type

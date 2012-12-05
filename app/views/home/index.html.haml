@@ -23,7 +23,7 @@
       - if (@account.ac_type == "in")
         - @images = @account.images
         - @images.each do |image|
-          - if image.expired(image.expiry)
+          - unless image.expired(image.expiry)
             %div#images-container.image
               = link_to "#{@account.name}", account_path(@account.id)
               - @pic = image.id
