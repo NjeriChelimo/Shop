@@ -5,5 +5,7 @@ class Cart
   field :client_user_id
   field :total_price
   field :total_items
+  field :payable_no
+  field :payable_id
   attr_accessible :client_user_id, :total_price, :total_items
 end

@@ -48,8 +48,7 @@
                   %p
                     = link_to "More goodies.. :)", account_path(@account.id)
                   %p
-                    = link_to "Quick Buy", shop_path(@account.id)
-                  %input(type="text" value="1" class="item_Quantity")
+                    %input(type="text" value="1" class="item_Quantity")
                   %div(class="item-thumb ")
                     %img(src="#{image.picture.url(:small)}")
                   %a(class="item_add" href="javascript:;") Add to Cart
