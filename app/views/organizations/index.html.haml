@@ -1,12 +1,10 @@
 %h1 Listing Shops
 
-%h2 Org No
-
-- @organizations.each do |organization|
-	%div
-		%p
-			= organization.org_no
-		%p
-			= organization.org_name
-		%p
-	    = link_to '#{organization.org_name}', organization
+%div#ogr-details
+  - @organizations.each do |organization|
+    %p
+	    = organization.org_no
+	  %p
+		  = organization.org_name
+	  %p
+	     = link_to '#{organization.org_name}', organization
