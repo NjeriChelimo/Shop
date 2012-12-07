@@ -1,13 +1,11 @@
 %h1 Listing Shops
 
-%table
-  %tr
-    %th Org No
-    %th
-    %th
+%h2 Org No
 
-    %tr
-      - @organizations.each do |organization|
-        %td= organization.org_no
-        - @accounts = organization.accounts
-        %td= link_to 'Products', organization
+- @organizations.each do |organization|
+	%div
+		%p
+			= organization.org_no
+		%p
+	        - @accounts = organization.accounts
+	        = link_to 'Products', organization
