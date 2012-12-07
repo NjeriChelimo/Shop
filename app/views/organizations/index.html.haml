@@ -7,5 +7,7 @@
 		%p
 			= organization.org_no
 		%p
-	        - @accounts = organization.accounts
-	        = link_to 'Products', organization
+			= organization.org_name
+		%p
+	    - @accounts = organization.accounts
+	      = link_to 'Products', organization
